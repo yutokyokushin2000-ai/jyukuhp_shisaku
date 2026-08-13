@@ -262,6 +262,45 @@ h2{font-family:var(--fb);font-size:clamp(21px,3.3vw,31px);
 .sec-lead{margin-top:17px;color:var(--ink2);max-width:660px;
   font-size:14.5px;line-height:1.95;font-weight:400}
 
+
+/* ---- セクションのキャッチフレーズ ---- */
+.catch{
+  margin:0 0 16px;font-family:var(--fb);
+  font-size:clamp(18px,2.5vw,25px);line-height:1.55;
+  font-weight:700;letter-spacing:.01em;
+  word-break:keep-all;
+}
+.catch span{display:block;color:var(--ink3)}
+.catch span.em{
+  color:var(--inkH);position:relative;display:inline-block;
+  padding-bottom:3px;
+}
+.catch span.em::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:8px;
+  background:var(--shuBg);z-index:-1;
+}
+.catch{isolation:isolate}
+/* 濃い面の上では色を反転 */
+.facts .catch span{color:#6C93A2}
+.facts .catch span.em{color:#0E4557}
+.facts .catch span.em::after{background:#CFE3EC}
+.contact .catch span{color:#B79A6A}
+.contact .catch span.em{color:#7A5418}
+.contact .catch span.em::after{background:#F7E6CB}
+.ct-catch{text-align:center}
+.ct-catch span{display:block}
+
+/* ---- 冒頭のキャッチをさらに強く ---- */
+h1{position:relative;isolation:isolate}
+h1 .u{
+  background:none;padding:0 3px;position:relative;display:inline-block;
+}
+h1 .u::after{
+  content:"";position:absolute;left:-2px;right:-2px;bottom:2px;height:14px;
+  background:linear-gradient(90deg,#F7C9C1,#FBE0DA);z-index:-1;
+  border-radius:1px;
+}
+
 /* ============ 課題 ============ */
 .problem{background:var(--card);border-top:1px solid var(--rule);
   border-bottom:1px solid var(--rule)}
@@ -737,6 +776,173 @@ h2{font-family:var(--fb);font-size:clamp(21px,3.3vw,31px);
   font-weight:700;margin-bottom:6px}
 .f-send{width:100%;justify-content:center;text-align:center}
 
+
+/* =========================================================
+   動き ── 情報を伝えるためだけに使う
+   ========================================================= */
+
+/* ① キャッチフレーズ：2行が順に立ち上がる */
+.catch span{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.catch.on span{opacity:1;transform:none}
+.catch.on span:nth-child(2){transition-delay:.14s}
+/* 下線は文字が出たあとに引かれる */
+.catch span.em::after{
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .55s cubic-bezier(.3,0,.2,1) .38s;
+}
+.catch.on span.em::after{transform:scaleX(1)}
+
+/* ② 見出しの下線（ヒーロー）*/
+h1 .u::after{
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .7s cubic-bezier(.3,0,.2,1) .45s;
+}
+.hero.on h1 .u::after{transform:scaleX(1)}
+.hero h1 .l{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1);
+}
+.hero.on h1 .l{opacity:1;transform:none}
+.hero.on h1 .l:nth-child(2){transition-delay:.13s}
+.hero .h1-sub,.hero .lead,.hero .hero-cta,.hero .hero-note,.hero .eyebrow{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .55s ease,transform .55s ease;
+}
+.hero.on .eyebrow{opacity:1;transform:none}
+.hero.on .h1-sub{opacity:1;transform:none;transition-delay:.30s}
+.hero.on .lead{opacity:1;transform:none;transition-delay:.40s}
+.hero.on .hero-cta{opacity:1;transform:none;transition-delay:.50s}
+.hero.on .hero-note{opacity:1;transform:none;transition-delay:.58s}
+
+/* ③ 数字：下から現れる */
+.f dd,.pnum b,.u-p b,.pl-m b,.ct-tel{
+  opacity:0;transform:translateY(12px);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.on .f dd,.on .pnum b,.on .u-p b,.on .pl-m b,.on .ct-tel{
+  opacity:1;transform:none;
+}
+.fgrid.on .f:nth-child(2) dd{transition-delay:.08s}
+.fgrid.on .f:nth-child(3) dd{transition-delay:.16s}
+.fgrid.on .f:nth-child(4) dd{transition-delay:.24s}
+.pgrid.on .pcell:nth-child(2) .pnum b{transition-delay:.12s}
+.pgrid.on .pcell:nth-child(3) .pnum b{transition-delay:.24s}
+
+/* ④ 受講パターンのバー：左から伸びる */
+.pl-b i{width:0!important;transition:width .85s cubic-bezier(.3,0,.2,1)}
+.plans.on .pl-b i{width:var(--w)!important}
+.plans.on .pl:nth-child(2) .pl-b i{transition-delay:.1s}
+.plans.on .pl:nth-child(3) .pl-b i{transition-delay:.2s}
+.plans.on .pl:nth-child(4) .pl-b i{transition-delay:.3s}
+
+/* ⑤ 1週間の帯：左から伸びる */
+.bar i{transform:scaleX(0);transform-origin:left;
+  transition:transform .6s cubic-bezier(.3,0,.2,1)}
+.bar-wrap.on .bar i{transform:scaleX(1)}
+.bar-wrap.on .bar-row:nth-child(3) .bar i{transition-delay:.07s}
+.bar-wrap.on .bar-row:nth-child(4) .bar i{transition-delay:.14s}
+.bar-wrap.on .bar-row:nth-child(5) .bar i{transition-delay:.21s}
+.bar-wrap.on .bar-row:nth-child(6) .bar i{transition-delay:.28s}
+.bar-wrap.on .bar-row:nth-child(7) .bar i{transition-delay:.35s}
+.bar-wrap.on .bar-row:nth-child(8) .bar i{transition-delay:.42s}
+
+/* ⑥ 到達度バー：左から1つずつ点灯 */
+.lv i{opacity:.25;transform:scale(.86);
+  transition:opacity .3s ease,transform .3s ease}
+.fig-lv.on .lv i{opacity:1;transform:none}
+.fig-lv.on .lv i:nth-child(2){transition-delay:.05s}
+.fig-lv.on .lv i:nth-child(3){transition-delay:.10s}
+.fig-lv.on .lv i:nth-child(4){transition-delay:.15s}
+.fig-lv.on .lv i:nth-child(5){transition-delay:.20s}
+.fig-lv.on .lv-row:nth-child(2) .lv i{transition-delay:.10s}
+.fig-lv.on .lv-row:nth-child(3) .lv i{transition-delay:.20s}
+.fig-lv.on .lv-row:nth-child(4) .lv i{transition-delay:.30s}
+.fig-lv.on .lv-row:nth-child(5) .lv i{transition-delay:.40s}
+
+/* ⑦ 型の分解：枝が順に現れ、つまずいた型が最後に光る */
+.pat-grid .pk{
+  opacity:0;transform:translateY(8px);
+  transition:opacity .38s ease,transform .38s ease;
+}
+.fig-pat.on .pat-grid .pk{opacity:1;transform:none}
+.fig-pat.on .pk:nth-child(2){transition-delay:.06s}
+.fig-pat.on .pk:nth-child(3){transition-delay:.12s}
+.fig-pat.on .pk:nth-child(4){transition-delay:.18s}
+.fig-pat.on .pk:nth-child(5){transition-delay:.24s}
+.fig-pat.on .pk:nth-child(6){transition-delay:.30s}
+.fig-pat.on .pk:nth-child(7){transition-delay:.36s}
+.fig-pat.on .pk.hot{animation:hotPulse 1.5s ease .75s 1}
+@keyframes hotPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(191,68,54,0)}
+  35%{box-shadow:0 0 0 5px rgba(191,68,54,.16)}
+}
+.pat-src span{opacity:0;transform:translateY(6px);
+  transition:opacity .4s ease,transform .4s ease}
+.fig-pat.on .pat-src span{opacity:1;transform:none;transition-delay:.85s}
+.fig-pat.on .pat-src span:nth-child(2){transition-delay:.93s}
+.fig-pat.on .pat-src span:nth-child(3){transition-delay:1.01s}
+
+/* ⑧ 4段階アイコン：順に現れる */
+.pipe-step{opacity:0;transform:translateY(12px);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.3,1)}
+.pipe.on .pipe-step{opacity:1;transform:none}
+.pipe.on .pipe-step:nth-child(2){transition-delay:.1s}
+.pipe.on .pipe-step:nth-child(3){transition-delay:.2s}
+.pipe.on .pipe-step:nth-child(4){transition-delay:.3s}
+.pipe::before{transform:scaleX(0);transform-origin:left;
+  transition:transform .8s cubic-bezier(.3,0,.2,1) .2s}
+.pipe.on::before{transform:scaleX(1)}
+
+/* ⑨ 週の循環：順に現れる */
+.cy{opacity:0;transform:translateY(10px);
+  transition:opacity .4s ease,transform .4s ease}
+.cycle.on .cy{opacity:1;transform:none}
+.cycle.on .cy:nth-child(3){transition-delay:.12s}
+.cycle.on .cy:nth-child(5){transition-delay:.24s}
+.cycle.on .cy:nth-child(7){transition-delay:.36s}
+
+/* ⑩ 比較表：行が順に現れる */
+.cmp .cmp-row{opacity:0;transform:translateX(-8px);
+  transition:opacity .4s ease,transform .4s ease}
+.cmp.on .cmp-row{opacity:1;transform:none}
+.cmp.on .cmp-row:nth-child(2){transition-delay:.07s}
+.cmp.on .cmp-row:nth-child(3){transition-delay:.14s}
+.cmp.on .cmp-row:nth-child(4){transition-delay:.21s}
+.cmp.on .cmp-row:nth-child(5){transition-delay:.28s}
+
+/* ⑪ 5段階の表：上から点灯 */
+.sc-row{opacity:0;transform:translateX(-8px);
+  transition:opacity .35s ease,transform .35s ease}
+.fig-scale.on .sc-row{opacity:1;transform:none}
+.fig-scale.on .sc-row:nth-child(2){transition-delay:.07s}
+.fig-scale.on .sc-row:nth-child(3){transition-delay:.14s}
+.fig-scale.on .sc-row:nth-child(4){transition-delay:.21s}
+.fig-scale.on .sc-row:nth-child(5){transition-delay:.28s}
+
+/* ⑫ ボタン：押した感触 */
+.btn,.cta-hd,.f-send{transition:background .16s ease,border-color .16s ease,
+  transform .1s ease,box-shadow .16s ease}
+.btn:active,.cta-hd:active,.f-send:active{transform:translateY(1px)}
+.btn-fill:hover{box-shadow:0 3px 12px rgba(29,95,101,.28)}
+.contact .btn-fill:hover{box-shadow:0 3px 12px rgba(168,56,40,.28)}
+
+/* 動きを好まない場合はすべて無効 */
+@media(prefers-reduced-motion:reduce){
+  .catch span,.catch span.em::after,
+  .hero h1 .l,.hero .h1-sub,.hero .lead,.hero .hero-cta,
+  .hero .hero-note,.hero .eyebrow,h1 .u::after,
+  .f dd,.pnum b,.u-p b,.pl-m b,.ct-tel,
+  .pl-b i,.bar i,.lv i,.pat-grid .pk,.pat-src span,
+  .pipe-step,.pipe::before,.cy,.cmp .cmp-row,.sc-row{
+    opacity:1!important;transform:none!important;
+    transition:none!important;animation:none!important;
+  }
+  .pl-b i{width:var(--w)!important}
+}
+
 /* ============ フッタ ============ */
 footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   background-color:var(--paper)}
@@ -795,6 +1001,8 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   
   
   section{padding:64px 22px}
+  .catch{font-size:17.5px;margin-bottom:13px}
+  h1 .u::after{height:11px;bottom:1px}
   .bar-wrap{padding:14px 12px}
   .bar-day{width:24px;font-size:13px}
   .bar-scale{margin-left:34px}
@@ -996,6 +1204,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">01　塾に通わせているのに、伸びない</div>
+      <p class="catch"><span>やっていないのではない。</span><span class="em">やることが、決まっていない。</span></p>
       <h2>問題は「勉強量」ではなく、<br>時間の使われ方にあります。</h2>
       <p class="sec-lead">
         週に何時間勉強しているかより、その時間が何に使われているか。
@@ -1004,7 +1213,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
     </div>
     <div class="pgrid rv">
       <div class="pcell">
-        <p class="pnum">年間<b>77</b>時間</p>
+        <p class="pnum">年間<b><span data-count="77">0</span></b>時間</p>
         <p class="pq">「何をやるか」を<br>決めるために消える時間</p>
         <p class="pa">
           自習のたびに教材と範囲を決めるのに20分かかるとすると、
@@ -1013,7 +1222,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
         </p>
       </div>
       <div class="pcell">
-        <p class="pnum">授業の<b>2</b>割</p>
+        <p class="pnum">授業の<b><span data-count="2">0</span></b>割</p>
         <p class="pq">本人に必要だった<br>内容の割合</p>
         <p class="pa">
           集団授業は全員に同じ内容を扱います。
@@ -1022,7 +1231,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
         </p>
       </div>
       <div class="pcell">
-        <p class="pnum"><b>1</b>週間</p>
+        <p class="pnum"><b><span data-count="1">0</span></b>週間</p>
         <p class="pq">「わかった」が<br>消えるまでの時間</p>
         <p class="pa">
           授業を受けた直後は理解できています。
@@ -1039,6 +1248,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">02　4つの仕組み</div>
+      <p class="catch"><span>教える前に、</span><span class="em">測る。分ける。組む。</span></p>
       <h2>設計してから、始める。</h2>
       <p class="sec-lead">
         授業は週1回だけ。残りはすべて演習です。
@@ -1241,6 +1451,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">03　数字で見る研数舎</div>
+      <p class="catch"><span>月額では高い。</span><span class="em">時間で割ると、安い。</span></p>
       <h2>時間あたりで見ると、<br>集団塾より安くなります。</h2>
       <p class="sec-lead">
         月額は決して安くありません。ただ、預ける時間の総量で割ると、見え方が変わります。
@@ -1249,22 +1460,22 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
     <dl class="fgrid rv">
       <div class="f">
         <dt>週の在席時間</dt>
-        <dd>8.5<small>〜40時間</small></dd>
+        <dd><span data-count="8.5" data-dec="1">0.0</span><small>〜40時間</small></dd>
         <p class="note">受講する科目数で<br>決まります</p>
       </div>
       <div class="f">
         <dt>1時間あたりの費用</dt>
-        <dd>1,340<small>円〜</small></dd>
+        <dd><span data-count="1340">0</span><small>円〜</small></dd>
         <p class="note">私立文系の場合<br>集団塾の目安は2,600円前後</p>
       </div>
       <div class="f">
         <dt>1コマの指定項目</dt>
-        <dd>4</dd>
+        <dd><span data-count="4">0</span></dd>
         <p class="note">教材・範囲<br>問題数・進め方</p>
       </div>
       <div class="f">
         <dt>定員</dt>
-        <dd>17<small>名</small></dd>
+        <dd><span data-count="17">0</span><small>名</small></dd>
         <p class="note">満席になり次第<br>受付を締め切ります</p>
       </div>
     </dl>
@@ -1297,6 +1508,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">04　1週間の過ごし方</div>
+      <p class="catch"><span>週18時間、塾にいる。</span><span class="em">そのすべてが、決まっている。</span></p>
       <h2>授業は週1回。<br>残りは設計された演習に使う。</h2>
       <p class="sec-lead">
         授業で先に教えることはしません。演習で進めた範囲を確認テストで検証し、
@@ -1375,6 +1587,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">05　料金</div>
+      <p class="catch"><span>全部そろえなくていい。</span><span class="em">要るものだけ、選べる。</span></p>
       <h2>必要な科目を、<br>必要な分だけ組む。</h2>
       <p class="sec-lead">
         料金は科目と演習量の積み上げで決まります。
@@ -1386,7 +1599,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
       <div class="unit-grid">
         <div class="unit u-main">
           <div class="u-t">授業あり科目</div>
-          <div class="u-p"><b>60,000</b><span>円／月・1科目</span></div>
+          <div class="u-p"><b><span data-count="60000">0</span></b><span>円／月・1科目</span></div>
           <ul class="u-l">
             <li>1対1授業 1時間</li>
             <li>演習 2時間 × 3回</li>
@@ -1397,7 +1610,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
         </div>
         <div class="unit u-sub">
           <div class="u-t">管理科目</div>
-          <div class="u-p"><b>20,000</b><span>円／月・1科目</span></div>
+          <div class="u-p"><b><span data-count="20000">0</span></b><span>円／月・1科目</span></div>
           <ul class="u-l">
             <li>演習 2時間 × 2回</li>
             <li>確認テスト 1時間</li>
@@ -1407,7 +1620,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
         </div>
         <div class="unit u-add">
           <div class="u-t">演習の追加</div>
-          <div class="u-p"><b>10,000</b><span>円／月・1枠</span></div>
+          <div class="u-p"><b><span data-count="10000">0</span></b><span>円／月・1枠</span></div>
           <ul class="u-l">
             <li>演習 2時間</li>
           </ul>
@@ -1420,28 +1633,28 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
         <div class="pl">
           <div class="pl-t">高1・高2</div>
           <div class="pl-s">授業1科目</div>
-          <div class="pl-b"><i style="width:21%"></i></div>
+          <div class="pl-b"><i style="--w:21%"></i></div>
           <div class="pl-m"><b>60,000</b>円</div>
           <div class="pl-w">週3日・8.5時間</div>
         </div>
         <div class="pl">
           <div class="pl-t">私立文系</div>
           <div class="pl-s">授業1＋管理2</div>
-          <div class="pl-b"><i style="width:42%"></i></div>
+          <div class="pl-b"><i style="--w:42%"></i></div>
           <div class="pl-m"><b>95,000</b>円</div>
           <div class="pl-w">週5日・18.5時間</div>
         </div>
         <div class="pl">
           <div class="pl-t">私立理系</div>
           <div class="pl-s">授業3科目</div>
-          <div class="pl-b"><i style="width:80%"></i></div>
+          <div class="pl-b"><i style="--w:80%"></i></div>
           <div class="pl-m"><b>180,000</b>円</div>
           <div class="pl-w">週6日・24.5時間</div>
         </div>
         <div class="pl">
           <div class="pl-t">国公立</div>
           <div class="pl-s">授業3＋管理3</div>
-          <div class="pl-b"><i style="width:100%"></i></div>
+          <div class="pl-b"><i style="--w:100%"></i></div>
           <div class="pl-m"><b>225,000</b>円</div>
           <div class="pl-w">週7日・40時間</div>
         </div>
@@ -1488,7 +1701,8 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">06　入塾までの流れ</div>
-      <h2>まず、現在地を測ってください。</h2>
+      <p class="catch"><span>診断も、計画も、</span><span class="em">まずは無料です。</span></p>
+      <h2>入る前に、中身を見てください。</h2>
       <p class="sec-lead">
         診断と計画作成は無料です。結果を見てから判断していただけます。
       </p>
@@ -1555,6 +1769,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv">
       <div class="sec-no">07　よくある質問</div>
+      <p class="catch"><span>都合の悪いことも、</span><span class="em">正直に書きます。</span></p>
       <h2>ご不明な点</h2>
     </div>
     <div class="rv">
@@ -1614,6 +1829,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <div class="inner">
     <div class="sec-hd rv" style="text-align:center;margin-bottom:34px">
       <div class="sec-no" style="color:var(--shu)">08　お申し込み</div>
+      <p class="catch ct-catch"><span>迷っている時間も、</span><span class="em">受験までの時間です。</span></p>
       <h2>まず、現在地を測ってください。</h2>
       <p class="sec-lead" style="margin-left:auto;margin-right:auto">
         診断テストと学習計画の作成は無料です。<br>
@@ -1734,16 +1950,20 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   });
 
   /* --- 数字を数え上げる --- */
-  function count(el, to, delay){
+  function count(el, to, delay, dec){
     if(!el) return;
-    if(reduce){ el.textContent = to.toLocaleString(); return; }
+    var fmt = function(v){
+      return dec ? v.toFixed(1)
+                 : Math.round(v).toLocaleString();
+    };
+    if(reduce){ el.textContent = fmt(to); return; }
     setTimeout(function(){
       var t0 = null, dur = 950;
       function step(ts){
         if(!t0) t0 = ts;
         var p = Math.min((ts - t0)/dur, 1);
         var e = 1 - Math.pow(1-p, 3);
-        el.textContent = Math.round(to*e).toLocaleString();
+        el.textContent = fmt(to*e);
         if(p < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
@@ -1759,25 +1979,74 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   }
 
   /* --- 画面に入ったら現れる --- */
-  if("IntersectionObserver" in window){
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); }
-      });
-    }, {threshold:.14, rootMargin:"0px 0px -40px 0px"});
-    [].forEach.call(document.querySelectorAll(".rv"), function(el){ io.observe(el); });
+  var TARGETS = ".rv,.catch,.fgrid,.pgrid,.plans,.bar-wrap,.fig-lv,"
+              + ".fig-pat,.pipe,.cycle,.cmp,.fig-scale,.unit-grid";
 
-    var ic = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.isIntersecting){ runChart(); ic.unobserve(e.target); }
-      });
-    }, {threshold:.25});
-    ic.observe(document.getElementById("chart"));
-  } else {
-    [].forEach.call(document.querySelectorAll(".rv"), function(el){ el.classList.add("on"); });
+  function showAll(){
+    [].forEach.call(document.querySelectorAll(TARGETS + ",.hero"), function(el){
+      el.classList.add("on");
+    });
+    /* 数え上げの対象は、動きを抑える設定なら即座に値を入れる */
+    [].forEach.call(document.querySelectorAll("[data-count]"), function(el){
+      count(el, parseFloat(el.getAttribute("data-count")), 0,
+            el.getAttribute("data-dec") === "1");
+    });
     runChart();
   }
 
+  if(reduce || !("IntersectionObserver" in window)){
+    showAll();
+  } else {
+    /* ヒーローは読み込み直後に動かす */
+    var hero = document.querySelector(".hero");
+    if(hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add("on"); });
+    });
+
+    function reveal(el){
+      if(el.classList.contains("on")) return;
+      el.classList.add("on");
+      [].forEach.call(el.querySelectorAll("[data-count]"), function(n){
+        count(n, parseFloat(n.getAttribute("data-count")), 0,
+              n.getAttribute("data-dec") === "1");
+      });
+    }
+
+    /* スクロール位置で直接判定する。
+       Observer より確実で、速くスクロールしても取りこぼさない */
+    var items = [].slice.call(document.querySelectorAll(TARGETS));
+
+    function check(){
+      if(!items.length) return;
+      var vh = window.innerHeight;
+      for(var i = items.length - 1; i >= 0; i--){
+        var el = items[i];
+        /* 画面の下から85%の位置に入ったら、または上へ抜けたら出す */
+        if(el.getBoundingClientRect().top < vh * 0.85){
+          reveal(el);
+          items.splice(i, 1);
+        }
+      }
+    }
+
+    /* スクロールのたびに必ず判定する。
+       間引くと、素早いスクロールで取りこぼすため */
+    window.addEventListener("scroll", check, {passive:true});
+    window.addEventListener("resize", check, {passive:true});
+    check();
+    setTimeout(check, 400);   /* 書体の読み込み後に位置がずれる場合の保険 */
+
+    /* 見取り図は少し深く入ってから */
+    var chart = document.getElementById("chart");
+    if(chart){
+      var ic = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){ runChart(); ic.unobserve(e.target); }
+        });
+      }, {threshold:.25});
+      ic.observe(chart);
+    }
+  }
 
   /* --- 申し込みフォーム --- */
   (function(){
