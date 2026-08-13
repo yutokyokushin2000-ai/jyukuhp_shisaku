@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF9F5">
+<title>「何をやるか」で、もう迷わせない｜大学受験の個別最適化塾</title>
+<meta name="description" content="診断テストをもとに、志望校までの46週間を1コマ単位で設計します。週8.5〜40時間の学習を管理。定員17名。東京都大田区。">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#FAFAF6;      /* 図面用紙 */
+  --grid:#E6EEEA;       /* 方眼 */
+  --ink:#1E3B41;        /* 文字。黒ではなく深い藍 */
+  --inkH:#122E34;       /* 見出し。もう一段濃く */
+  --ink2:#4F6A6E;
+  --ink3:#8AA0A2;
+  --rule:#DEE5E1;
+  --ruleS:#B4C3C0;
+  --shu:#BF4436;        /* 朱の記入 */
+  --shuBg:#FCEFEC;
+  --ai:#2E7075;         /* 藍の確定 */
+  --aiBg:#E9F1F0;
+  --deep:#2E7075;       /* 濃い面。黒を使わず藍で通す */
+  --deepIn:#255E63;     /* 濃い面の内側 */
+  --card:#FFFFFF;
+  /* 到達度をあらわす色。低い順に、赤 → 橙 → 黄 → 若草 → 緑 */
+  --g0:#E4614F;  --g0b:#FCEAE7;
+  --g1:#E8934A;  --g1b:#FDF0E4;
+  --g2:#D9B44A;  --g2b:#FBF5E3;
+  --g3:#7FB069;  --g3b:#EEF5EA;
+  --g4:#3E8E7E;  --g4b:#E6F1EE;
+  --sun:#F2A65A;
+  /* 明るい面。黒の代わりに使う */
+  --sky:#E7F1F5;   --skyIn:#D3E6ED;   --skyTx:#1F5F72;
+  --cream:#FDF4E6; --creamIn:#F7E6CB; --creamTx:#8A6320;
+  --mint:#EAF4EE;  --mintIn:#D6E9DE;  --mintTx:#2C6B4F;
+  --rose:#FDEEEC;  --roseIn:#F7D9D4;  --roseTx:#A93E30;
+  --fd:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  --fb:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;
+  --fm:"SFMono-Regular",Menlo,Consolas,"Roboto Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{color-scheme:light}
+  html,body{background:#FAFAF6;color:#25454B}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--paper);overflow-x:hidden}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--fb);
+  font-size:15px;line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* 方眼の下地 ─ 製図用紙 */
+.graph{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+/* ============ ヘッダ ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(247,246,241,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.hd{
+  max-width:1120px;margin:0 auto;padding:0 22px;
+  height:62px;display:flex;align-items:center;gap:20px;
+}
+.logo{font-family:var(--fd);font-size:18px;letter-spacing:.1em;
+  white-space:nowrap;color:var(--ai)}
+.logo em{font-style:normal;font-family:var(--fm);font-size:10px;
+  color:var(--ink3);display:block;letter-spacing:.16em;margin-top:-3px}
+nav.pc{display:flex;gap:26px;margin-left:auto;font-size:13px}
+nav.pc a{color:var(--ink2);padding:4px 0;border-bottom:1px solid transparent;transition:.2s}
+nav.pc a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.cta-hd{
+  background:#1D5F65;color:#FFFFFF;font-weight:700;
+  padding:10px 20px;font-size:13px;letter-spacing:.05em;white-space:nowrap;
+  transition:.2s;
+}
+.cta-hd:hover{background:var(--deepIn)}
+.burger{display:none;margin-left:auto;width:42px;height:42px;
+  background:none;border:none;cursor:pointer;flex-direction:column;
+  justify-content:center;align-items:center;gap:5px}
+.burger span{width:20px;height:1.6px;background:var(--ink);display:block;transition:.25s}
+.burger.on span:nth-child(1){transform:translateY(6.6px) rotate(45deg)}
+.burger.on span:nth-child(2){opacity:0}
+.burger.on span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
+.sp-nav{display:none;position:fixed;inset:62px 0 0;background:var(--paper);
+  z-index:99;padding:24px 22px;overflow-y:auto}
+.sp-nav.on{display:block}
+.sp-nav a{display:block;padding:16px 0;border-bottom:1px solid var(--rule);
+  font-size:15px}
+.sp-nav .cta-hd{display:block;text-align:center;margin-top:20px;padding:15px}
+
+/* ============ ヒーロー ============ */
+.hero{padding:112px 22px 56px;position:relative;overflow:hidden;
+  background-color:var(--paper)}
+.hero-in{max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);
+  gap:52px;align-items:start}
+.eyebrow{
+  font-family:var(--fm);font-size:11.5px;letter-spacing:.16em;
+  color:var(--shu);font-weight:600;
+  display:flex;align-items:center;gap:10px;margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--shu)}
+h1{
+  font-family:var(--fb);font-size:clamp(27px,6.6vw,52px);
+  line-height:1.42;letter-spacing:0;font-weight:700;color:var(--inkH);
+  word-break:keep-all;overflow-wrap:normal;
+}
+h1 .l{display:block}
+h1 .u{
+  background:linear-gradient(transparent 64%,#F7DCD7 64%);
+  padding:0 3px;
+}
+h1 .u em{font-style:normal;color:var(--ai);
+  font-family:var(--fd);font-weight:600;letter-spacing:.01em}
+.lead{
+  margin-top:26px;font-size:15px;line-height:2.05;color:var(--ink2);
+  max-width:540px;
+}
+.hero-cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.btn{
+  padding:15px 30px;font-size:14px;letter-spacing:.06em;font-weight:700;
+  border:1px solid var(--ai);transition:.2s;cursor:pointer;
+  display:inline-block;
+}
+.btn-fill{background:#1D5F65;color:#FFFFFF;font-weight:700}
+.btn-fill:hover{background:var(--deepIn);border-color:var(--deepIn)}
+.btn-line{background:#FFFFFF;color:var(--ai)}
+.btn-line:hover{background:var(--ai);color:#FFFFFF}
+.hero-note{margin-top:18px;font-size:12px;color:var(--ink3);
+  font-family:var(--fm);letter-spacing:.04em}
+
+
+/* ---- 学習の見取り図 ---- */
+.chart{
+  background:var(--card);border:1px solid var(--ruleS);
+  box-shadow:0 1px 0 var(--rule),0 16px 38px rgba(37,69,75,.09);
+}
+.chart-hd{
+  padding:12px 16px;border-bottom:1px solid var(--ruleS);
+  display:flex;align-items:baseline;gap:8px;background:var(--aiBg);
+}
+.chart-hd b{font-family:var(--fb);font-size:13.5px;font-weight:700;color:var(--ai)}
+.chart-hd span{font-family:var(--fb);font-size:10.5px;color:var(--ink3);margin-left:auto}
+.chart-bd{padding:6px 16px 14px}
+
+.stage{padding:14px 0;border-bottom:1px dashed var(--rule)}
+.stage:last-child{border-bottom:none}
+.stage-t{display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.stage-t i{width:19px;height:19px;border-radius:50%;background:var(--ai);
+  color:#fff;font-style:normal;font-family:var(--fm);font-size:11px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* 円グラフ */
+.donut-wrap{display:flex;align-items:center;gap:16px}
+.donut{width:96px;height:96px;flex-shrink:0;transform:rotate(-90deg)}
+.dn-bg{fill:none;stroke:var(--rule);stroke-width:5}
+.dn{fill:none;stroke-width:5;stroke-dasharray:0 100;
+  transition:stroke-dasharray 1.1s cubic-bezier(.3,0,.2,1)}
+.dn0{stroke:var(--g0)}
+.dn1{stroke:var(--g1)}
+.dn3{stroke:var(--g3)}
+.chart.on .dn0{stroke-dasharray:15.6 84.4;stroke-dashoffset:0}
+.chart.on .dn1{stroke-dasharray:26.7 73.3;stroke-dashoffset:-15.6}
+.chart.on .dn3{stroke-dasharray:57.7 42.3;stroke-dashoffset:-42.3}
+.dn-n,.dn-l{transform:rotate(90deg);transform-origin:21px 21px;
+  text-anchor:middle;fill:var(--ink)}
+.dn-n{font-family:var(--fd);font-size:9px;font-weight:600}
+.dn-l{font-size:3.4px;fill:var(--ink3)}
+.dn-lg{list-style:none;font-size:12.5px}
+.dn-lg li{display:flex;align-items:center;gap:7px;padding:4px 0;color:var(--ink2)}
+.dn-lg i{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+.dn-lg b{margin-left:auto;font-family:var(--fd);font-size:17px;
+  font-weight:600;color:var(--ink)}
+.c0{background:var(--g0)}.c1{background:var(--g1)}.c3{background:var(--g3)}
+
+/* 配分バー */
+.pick-row{display:grid;grid-template-columns:74px minmax(0,1fr) 44px;
+  gap:9px;align-items:center;margin-bottom:7px;font-size:12px}
+.pk-u{color:var(--ink2)}
+.pk-b{height:15px;background:var(--paper);border-radius:2px;overflow:hidden}
+.pk-b em{display:block;height:100%;width:0;border-radius:2px;
+  transition:width 1s cubic-bezier(.3,0,.2,1)}
+.chart.on .pk-b em{width:var(--w)}
+.pk-n{font-family:var(--fm);font-size:11.5px;color:var(--ink);text-align:right}
+.pick-note{margin-top:9px;font-size:11.5px;color:var(--ink3)}
+
+/* 到達の線 */
+.path-svg{width:100%;height:auto;display:block}
+.gl{stroke:var(--rule);stroke-width:1;stroke-dasharray:3 4}
+.goal{stroke:var(--g4);stroke-width:1.4;stroke-dasharray:5 4;opacity:.7}
+.pa{fill:none;stroke:url(#pg);stroke-width:3.4;stroke-linecap:round;
+  stroke-dasharray:340;stroke-dashoffset:340;
+  transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1)}
+.chart.on .pa{stroke-dashoffset:0}
+.pa-f{fill:url(#pf);opacity:0;transition:opacity .9s ease .7s}
+.chart.on .pa-f{opacity:1}
+.pt{opacity:0;transition:opacity .4s ease}
+.pt.s{fill:var(--g0)}
+.pt.e{fill:var(--g4)}
+.chart.on .pt.s{opacity:1;transition-delay:.2s}
+.chart.on .pt.e{opacity:1;transition-delay:1.5s}
+.path-x{display:flex;justify-content:space-between;
+  font-family:var(--fm);font-size:10.5px;color:var(--ink3);margin-top:2px}
+.path-tag{display:flex;justify-content:space-between;margin-top:6px;font-size:11.5px}
+.path-tag .s{color:var(--g0);font-weight:700}
+.path-tag .e{color:var(--g4);font-weight:700}
+
+.chart-ft{
+  border-top:1px solid var(--rule);padding:12px 16px;
+  display:flex;gap:14px;font-size:11px;color:var(--ink3);background:var(--paper);
+}
+.chart-ft b{display:block;color:var(--ai);font-family:var(--fd);
+  font-size:22px;font-weight:600;line-height:1.15}
+
+
+.stage-n{margin-top:11px;padding:9px 12px;background:var(--cream);
+  border-left:3px solid var(--sun);font-size:12.5px;color:var(--ink2)}
+.stage-n b{color:var(--creamTx);font-size:14px}
+.pick-sum{display:flex;gap:16px;margin-top:10px;padding-top:10px;
+  border-top:1px dashed var(--rule);font-size:11.5px;color:var(--ink3)}
+.pick-sum b{font-family:var(--fd);font-size:16px;color:var(--ai);
+  font-weight:600;margin:0 2px}
+.gates{display:flex;gap:5px;margin-top:10px}
+.gt{flex:1;padding:6px 4px;background:var(--mint);border-radius:2px;
+  font-size:10.5px;color:var(--mintTx);text-align:center;line-height:1.5}
+.gt i{display:block;font-style:normal;font-family:var(--fm);
+  font-size:10px;color:var(--ink3)}
+
+
+.h1-sub{
+  margin-top:20px;padding-left:16px;border-left:3px solid var(--sun);
+  font-size:15px;line-height:1.85;color:var(--ink2);
+}
+.h1-sub b{color:var(--ink);font-weight:700}
+.sp-br{display:none}
+
+/* ============ 共通セクション ============ */
+section{padding:88px 22px;background-color:var(--paper)}
+.inner{max-width:1120px;margin:0 auto}
+.sec-hd{margin-bottom:48px}
+.sec-no{font-family:var(--fm);font-size:12px;letter-spacing:.16em;
+  color:#A03325;margin-bottom:13px;font-weight:700}
+h2{font-family:var(--fb);font-size:clamp(21px,3.3vw,31px);
+  line-height:1.55;font-weight:700;letter-spacing:.01em;color:var(--inkH)}
+.sec-lead{margin-top:17px;color:var(--ink2);max-width:660px;
+  font-size:14.5px;line-height:1.95;font-weight:400}
+
+/* ============ 課題 ============ */
+.problem{background:var(--card);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.pcell{background:var(--card);padding:34px 28px;position:relative}
+.pnum{font-family:var(--fm);font-size:13px;letter-spacing:.06em;
+  color:var(--ink3);margin-bottom:18px;display:flex;
+  align-items:baseline;gap:3px}
+.pnum b{font-family:var(--fd);font-size:64px;font-weight:600;
+  letter-spacing:0;margin:0 5px;line-height:1;color:#A03325}
+.pq{font-family:var(--fb);font-size:18.5px;font-weight:700;
+  line-height:1.65;margin-bottom:15px;color:var(--inkH)}
+.pq::before{content:"";display:block;width:34px;height:2px;
+  background:var(--shu);margin-bottom:15px;opacity:.45}
+.pa{font-size:14px;color:#5B7378;line-height:2.05}
+
+/* ============ 4つの仕組み ============ */
+.methods{display:grid;gap:1px;background:var(--ruleS);
+  border:1px solid var(--ruleS)}
+.m{background:var(--card);padding:36px 32px;
+  display:grid;grid-template-columns:78px minmax(0,1fr);gap:26px;align-items:start}
+
+
+.m h3{font-family:var(--fb);font-size:19.5px;font-weight:700;
+  margin-bottom:6px;line-height:1.6;color:var(--inkH)}
+.m .sub{font-size:12.5px;color:var(--shu);margin-bottom:15px;
+  font-family:var(--fm);letter-spacing:.03em}
+.m p{font-size:14px;color:#5B7378;line-height:2.0;max-width:640px}
+.m-fig{margin-top:20px;padding:16px 18px;background:var(--paper);
+  border:1px solid var(--rule);font-family:var(--fm);font-size:12px;
+  color:var(--ink2);line-height:2.15;overflow-x:auto;white-space:pre;
+  max-width:100%;-webkit-overflow-scrolling:touch}
+
+
+/* ---- 流れの図 ---- */
+.pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:start;margin-bottom:34px;position:relative;isolation:isolate}
+.pipe-step{text-align:center;padding:0 6px;position:relative;z-index:1}
+.pipe-icon{width:70px;height:70px;margin:0 auto 14px;
+  border:1px solid var(--ruleS);background:var(--card);
+  display:flex;align-items:center;justify-content:center;border-radius:50%}
+.pipe-icon svg{width:38px;height:38px}
+.sk{fill:none;stroke:var(--ai);stroke-width:2}
+.skf{fill:var(--aiBg);stroke:var(--ai);stroke-width:2}
+.sl{stroke:var(--ruleS);stroke-width:1.6}
+.sc{fill:none;stroke:var(--shu);stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+.sf{fill:var(--aiBg)}
+.sfa{fill:var(--shu)}
+.pipe-step b{display:block;font-size:16px;font-weight:700;margin-bottom:3px}
+.pipe-step span{display:block;font-size:12.5px;color:var(--ink2)}
+.pipe-step em{display:block;font-style:normal;font-family:var(--fm);
+  font-size:11px;color:var(--ai);margin-top:5px}
+.pipe-arrow{display:none}
+.pipe::before{content:"";position:absolute;top:35px;left:12.5%;right:12.5%;
+  height:1px;background:var(--ruleS);z-index:0}
+
+/* ---- 到達度の図 ---- */
+.fig-lv{margin-top:18px;border:1px solid var(--rule);background:var(--paper)}
+.lv-row{display:grid;grid-template-columns:minmax(0,1fr) 96px 92px;
+  gap:12px;align-items:center;padding:11px 14px;
+  border-bottom:1px solid var(--rule);font-size:13px}
+.lv-row:last-child{border-bottom:none}
+.lv{display:flex;gap:3px}
+.lv i{flex:1;height:11px;background:var(--rule);border-radius:1px}
+.lv i.on{background:var(--ai)}
+.lv i.ng{background:var(--shu)}
+.lv-row em{font-style:normal;font-size:11.5px;color:var(--ink3);text-align:right}
+.lv-row em.w{color:var(--shu)}
+
+/* ---- 型の分解図 ---- */
+
+
+
+
+
+
+
+
+
+
+/* ---- 時間割の図 ---- */
+.fig-cal{margin-top:18px;border:1px solid var(--rule);background:var(--paper)}
+.cal-row{display:grid;grid-template-columns:44px 62px minmax(0,1fr);
+  gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);
+  font-size:12.5px;align-items:center}
+.cal-row:last-child{border-bottom:none}
+.cal-h{font-size:10.5px;letter-spacing:.1em;color:var(--ink3);
+  background:var(--card)}
+.cal-row span:first-child{font-weight:700}
+.cal-row span:nth-child(2){font-family:var(--fm);color:var(--ink3)}
+.cal-row i{font-style:normal;font-family:var(--fm);font-size:11px;
+  color:var(--ai);margin-left:8px;white-space:nowrap}
+
+/* ---- 調整の図 ---- */
+.fig-adj{margin-top:18px;display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.adj{border:1px solid var(--rule);background:var(--paper);
+  padding:14px 12px;text-align:center}
+.adj b{display:block;font-family:var(--fd);font-size:30px;
+  font-weight:600;color:var(--ai);line-height:1}
+.adj span{display:block;font-size:11.5px;color:var(--ink3);margin:6px 0 8px}
+.adj em{display:block;font-style:normal;font-size:12px;
+  color:var(--ink2);line-height:1.6}
+.adj em.w{color:var(--shu)}
+.adj em.g{color:var(--ai)}
+
+/* ---- 段階の番号 ---- */
+
+
+
+/* ---- 到達度の5色 ---- */
+.lv i.v0{background:var(--g0)}
+.lv i.v1{background:var(--g1)}
+.lv i.v2{background:var(--g2)}
+.lv i.v3{background:var(--g3)}
+.lv i.v4{background:var(--g4)}
+.lv-row em.t0{color:var(--g0)}
+.lv-row em.t1{color:#C97C2E}
+.lv-row em.t2{color:#A88A22}
+.lv-row em.t3{color:#5C8E47}
+.lv-row em.t4{color:var(--g4)}
+
+/* ---- 調整の色分け ---- */
+.adj.a0{background:var(--g0b);border-color:var(--g0)}
+.adj.a0 b{color:var(--g0)}
+.adj.a2{background:var(--g2b);border-color:var(--g2)}
+.adj.a2 b{color:#A88A22}
+.adj.a4{background:var(--g4b);border-color:var(--g4)}
+.adj.a4 b{color:var(--g4)}
+.adj span{font-weight:700;color:var(--ink)}
+.adj em{color:var(--ink2)}
+
+
+/* ---- 4段階アイコンの番号 ---- */
+
+.pipe-step b{display:block;font-size:19px;font-weight:700;
+  margin-bottom:4px;color:var(--ink)}
+.pipe-s{display:block;font-size:12.5px;color:var(--ink2)}
+
+/* ---- 見出し側の番号 ---- */
+
+
+
+
+/* ---- 型の分解図 ---- */
+.fig-pat{margin-top:18px;border:1px solid var(--rule);
+  background:var(--paper);padding:18px 16px 16px}
+.pat-top{text-align:center}
+.pat-u{display:inline-block;padding:9px 20px;background:var(--sky);
+  border:1px solid var(--skyIn);font-size:14px;font-weight:700;
+  color:var(--skyTx)}
+.pat-c{display:block;font-size:11px;color:var(--ink3);margin-top:5px}
+.pat-line{width:1px;height:18px;background:var(--ruleS);margin:6px auto 0}
+.pat-line::after{content:"";display:block;width:8px;height:8px;
+  border-right:1px solid var(--ruleS);border-bottom:1px solid var(--ruleS);
+  transform:rotate(45deg);margin:-5px 0 0 -4px}
+.pat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;margin-top:12px}
+.pk{padding:9px 6px;background:#FFFFFF;border:1px solid var(--rule);
+  font-size:11.5px;text-align:center;line-height:1.4;color:var(--ink2)}
+.pk i{display:block;font-style:normal;font-size:10px;margin-top:3px}
+.pk.ok i{color:var(--g3)}
+.pk.hot{border-color:var(--shu);background:var(--rose);
+  color:var(--roseTx);font-weight:700}
+.pk.hot i{color:var(--shu)}
+.pat-out{margin-top:14px;text-align:center}
+.pat-arw{display:block;width:1px;height:16px;background:var(--shu);
+  margin:0 auto 8px;opacity:.5}
+.pat-arw::after{content:"";display:block;width:8px;height:8px;
+  border-right:1px solid var(--shu);border-bottom:1px solid var(--shu);
+  transform:rotate(45deg);margin:-5px 0 0 -4px}
+.pat-out p{font-size:13px;color:var(--ink2)}
+.pat-out b{color:var(--shu)}
+.pat-src{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin-top:10px}
+.pat-src span{padding:6px 12px;background:var(--rose);
+  border:1px solid var(--roseIn);font-family:var(--fm);
+  font-size:11.5px;color:var(--roseTx)}
+
+/* ---- 5段階の表 ---- */
+.fig-scale{margin-top:18px;border:1px solid var(--rule);background:#FFFFFF}
+.sc-row{display:flex;align-items:center;gap:12px;padding:9px 14px;
+  border-bottom:1px solid var(--rule);font-size:13px}
+.sc-row:last-child{border-bottom:none}
+.sc-n{width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:15px;font-weight:600;color:#FFFFFF}
+.s5{background:var(--g4)} .s4{background:var(--g3)}
+.s3{background:var(--g2)} .s2{background:var(--g1)} .s1{background:var(--g0)}
+.sc-t{color:var(--ink2)}
+
+/* ---- 週ごとの判定 ---- */
+.ad-h{display:block;font-size:13.5px;font-weight:700;margin-bottom:8px}
+.adj.a0 .ad-h{color:var(--g0)}
+.adj.a2 .ad-h{color:#A88A22}
+.adj.a4 .ad-h{color:var(--g4)}
+
+
+/* ---- 段階の番号（見出し側）---- */
+.m-no{display:flex;flex-direction:column;align-items:flex-start;
+  gap:10px;padding-top:3px}
+.mn-n{display:inline-flex;align-items:center;justify-content:center;
+  min-width:38px;height:26px;padding:0 9px;border-radius:3px;
+  background:var(--ai);color:#FFFFFF;
+  font-family:var(--fm);font-size:13px;letter-spacing:.1em;font-weight:600}
+.m-no b{display:block;font-family:var(--fb);font-size:22px;
+  font-weight:700;color:var(--ink);line-height:1.3;letter-spacing:.04em}
+
+/* ---- 段階の番号（アイコン側）---- */
+.pipe-no{display:inline-flex;align-items:center;justify-content:center;
+  min-width:34px;height:22px;padding:0 8px;border-radius:3px;
+  background:var(--aiBg);color:var(--ai);margin-bottom:9px;
+  font-family:var(--fm);font-size:11.5px;letter-spacing:.1em;font-weight:600}
+
+/* ============ 数値 ============ */
+.facts{background:var(--sky);color:var(--ink);
+  border-top:1px solid var(--skyIn);border-bottom:1px solid var(--skyIn)}
+.facts .sec-no{color:var(--shu)}
+.facts h2{color:var(--skyTx);letter-spacing:.015em}
+.facts .sec-lead{color:var(--ink2)}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:rgba(255,255,255,.22)}
+.f{background:#FFFFFF;padding:30px 22px;text-align:center}
+.f dt{font-size:12px;color:var(--ink2);letter-spacing:.09em;
+  margin-bottom:11px;font-weight:700}
+.f dd{font-family:var(--fd);font-size:46px;line-height:1;font-weight:600;
+  letter-spacing:.01em;color:#134E63}
+.f dd small{font-size:14px;margin-left:3px;font-weight:400}
+.f .note{font-size:11px;color:var(--ink3);margin-top:11px;line-height:1.7}
+
+.cmp{margin-top:34px;border:1px solid var(--skyIn);background:#FFFFFF}
+.cmp-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);
+  gap:12px;padding:14px 20px;border-bottom:1px solid var(--skyIn);
+  font-size:13.5px;align-items:baseline}
+.cmp-row:last-of-type{border-bottom:none}
+.cmp-head{font-size:11.5px;letter-spacing:.1em;color:var(--ink3);
+  background:var(--sky)}
+.cmp-row span:first-child{color:var(--ink2)}
+.cmp-row span:nth-child(2){font-family:var(--fm);color:#134E63;font-weight:600}
+.cmp-row span:nth-child(2) b{font-family:var(--fd);font-size:24px;
+  font-weight:600;margin-right:2px;color:#0E4557}
+.cmp-row span:nth-child(3){font-family:var(--fm);color:#9AAAB0}
+.cmp-note{grid-column:1/-1;padding:14px 20px;font-size:11.5px;
+  color:var(--ink3);line-height:1.8;border-top:1px solid var(--skyIn)}
+
+
+/* ---- 1週間の帯 ---- */
+.bar-wrap{background:var(--card);border:1px solid var(--ruleS);padding:18px 20px}
+.bar-scale{display:grid;grid-template-columns:repeat(4,1fr);
+  margin-left:44px;margin-bottom:6px;font-family:var(--fm);
+  font-size:10.5px;color:var(--ink3)}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.bar-day{width:34px;font-weight:700;font-size:14px;text-align:center}
+.bar{position:relative;flex:1;height:30px;background:var(--paper);
+  border:1px solid var(--rule)}
+.bar i{position:absolute;top:0;bottom:0;font-style:normal;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11.5px;color:#FFFFFF;white-space:nowrap;overflow:hidden}
+.bar i.ex{background:var(--ai)}
+.bar i.ts{background:var(--shu)}
+.bar i.ls{background:#5FA3A8}
+.bar i.hm{background:#F0C99A;color:#7A5418}
+.bar i.sp2{background:transparent;color:var(--ink3);font-size:11.5px}
+.bar-row.sp .bar{border-style:dashed}
+.bar-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--rule);
+  font-size:11.5px;color:var(--ink2);align-items:center}
+.bar-legend span{display:flex;align-items:center;gap:5px}
+.bar-legend i{width:13px;height:13px;display:inline-block}
+.bar-legend i.ex{background:var(--ai)}
+.bar-legend i.ts{background:var(--shu)}
+.bar-legend i.ls{background:#5FA3A8}
+.bar-legend i.hm{background:#F0C99A}
+.bar-legend .tot{margin-left:auto;font-family:var(--fm);
+  color:var(--ai);font-weight:600}
+
+/* ---- 週の循環 ---- */
+
+
+
+
+
+
+
+
+/* ---- 週の循環 ---- */
+.cycle{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;
+  align-items:stretch;margin-top:24px}
+.cy{padding:18px 12px 15px;text-align:center;border:1px solid;
+  display:flex;flex-direction:column;align-items:center}
+.c-a{background:var(--sky);border-color:var(--skyIn)}
+.c-b{background:var(--rose);border-color:var(--roseIn)}
+.c-c{background:var(--mint);border-color:var(--mintIn)}
+.c-d{background:var(--cream);border-color:var(--creamIn)}
+.cy-n{width:24px;height:24px;border-radius:50%;margin-bottom:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-size:12px;color:#FFFFFF}
+.c-a .cy-n{background:var(--skyTx)}
+.c-b .cy-n{background:var(--roseTx)}
+.c-c .cy-n{background:var(--mintTx)}
+.c-d .cy-n{background:var(--creamTx)}
+.cy b{display:block;font-size:15.5px;font-weight:700;margin-bottom:5px}
+.c-a b{color:var(--skyTx)} .c-b b{color:var(--roseTx)}
+.c-c b{color:var(--mintTx)} .c-d b{color:var(--creamTx)}
+.cy-d{display:block;font-size:11.5px;color:var(--ink2);line-height:1.65}
+.cy em{display:block;font-style:normal;font-family:var(--fm);
+  font-size:11px;color:var(--ink3);margin-top:8px}
+.cy-a{width:22px;align-self:center;height:1px;background:var(--ruleS);
+  position:relative}
+.cy-a::after{content:"";position:absolute;right:0;top:-3.5px;
+  width:7px;height:7px;border-right:1px solid var(--ruleS);
+  border-top:1px solid var(--ruleS);transform:rotate(45deg)}
+
+/* ============ 料金 ============ */
+.price{background:var(--card);border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule)}
+.pbox{border:1px solid var(--ruleS);background:var(--card);max-width:660px}
+.pbox-hd{background:var(--mint);color:var(--mintTx);padding:24px 28px;
+  border-bottom:1px solid var(--mintIn)}
+.pbox-hd .n{font-family:var(--fb);font-size:19px;font-weight:700;margin-bottom:5px}
+.pbox-hd .d{font-size:12.5px;color:var(--ink2)}
+.pbox-bd{padding:28px}
+.amount{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.amount-sub{margin-top:10px;padding-bottom:22px;
+  border-bottom:1px solid var(--rule);margin-bottom:22px;
+  font-size:13.5px;color:var(--ink2)}
+.amount-sub b{font-family:var(--fm);color:var(--ai);font-weight:600}
+.amount b{font-family:var(--fd);font-size:52px;font-weight:600;
+  line-height:1;color:var(--ai)}
+.amount span{font-size:14px;color:var(--ink2)}
+.inc{list-style:none;font-size:14px}
+.inc li{padding:9px 0 9px 24px;position:relative;color:var(--ink2)}
+.inc li::before{content:"";position:absolute;left:0;top:18px;
+  width:11px;height:1.5px;background:var(--ai)}
+.inc li b{color:var(--ink);font-weight:600}
+.pnote{margin-top:22px;padding:15px 18px;background:var(--paper);
+  border-left:2px solid var(--shu);font-size:12.5px;color:var(--ink2);line-height:1.9}
+
+
+/* ---- 料金の構成要素 ---- */
+.unit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.unit{background:#FFFFFF;border:1px solid var(--rule);padding:22px 20px}
+.u-main{border-color:var(--skyIn);background:var(--sky)}
+.u-sub{border-color:var(--mintIn);background:var(--mint)}
+.u-add{border-color:var(--creamIn);background:var(--cream)}
+.u-t{font-size:13.5px;font-weight:700;margin-bottom:10px}
+.u-main .u-t{color:var(--skyTx)}
+.u-sub .u-t{color:var(--mintTx)}
+.u-add .u-t{color:var(--creamTx)}
+.u-p{display:flex;align-items:baseline;gap:5px;margin-bottom:14px;
+  padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,.08)}
+.u-p b{font-family:var(--fd);font-size:36px;font-weight:600;line-height:1}
+.u-main .u-p b{color:#134E63}
+.u-sub .u-p b{color:#1F5C42}
+.u-add .u-p b{color:#77531A}
+.u-p span{font-size:11.5px;color:var(--ink2)}
+.u-l{list-style:none;font-size:12.5px}
+.u-l li{padding:4px 0 4px 15px;position:relative;color:var(--ink2)}
+.u-l li::before{content:"";position:absolute;left:0;top:12px;
+  width:8px;height:1.5px;background:currentColor;opacity:.4}
+.u-n{margin-top:10px;font-size:11px;color:var(--ink3)}
+
+/* ---- 受講の例 ---- */
+.plan-h{margin:30px 0 12px;font-size:14px;font-weight:700}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.pl{background:#FFFFFF;border:1px solid var(--rule);padding:16px 14px}
+.pl-t{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.pl-s{font-size:11.5px;color:var(--ink3);margin-bottom:10px}
+.pl-b{height:7px;background:var(--paper);border-radius:4px;
+  overflow:hidden;margin-bottom:10px}
+.pl-b i{display:block;height:100%;background:var(--ai);border-radius:4px}
+.pl-m{font-family:var(--fd);font-size:13px;color:var(--ink2)}
+.pl-m b{font-size:27px;font-weight:600;color:#1D5F65;margin-right:1px}
+.pl-w{font-family:var(--fm);font-size:11px;color:var(--ink3);margin-top:5px}
+
+/* ---- 費用を抑える ---- */
+.save{margin-top:30px;background:var(--cream);
+  border:1px solid var(--creamIn);padding:22px 22px 20px}
+.save-t{font-size:15.5px;font-weight:700;color:var(--creamTx);margin-bottom:8px}
+.save-p{font-size:13px;color:var(--ink2);line-height:1.95;margin-bottom:16px}
+.save-row{display:grid;grid-template-columns:minmax(0,1fr) 96px 84px;
+  gap:10px;padding:11px 14px;background:#FFFFFF;
+  border:1px solid var(--creamIn);border-bottom:none;
+  font-size:13px;align-items:center}
+.save-row:last-of-type{border-bottom:1px solid var(--creamIn)}
+.save-h{background:var(--creamIn);font-size:11px;color:var(--creamTx);
+  letter-spacing:.08em}
+.sm{font-family:var(--fm);font-weight:600;text-align:right;color:var(--ink)}
+.sw{font-family:var(--fm);font-size:11.5px;color:var(--ink3);text-align:right}
+.save-row.hl{background:var(--mint);border-color:var(--mintIn)}
+.save-row.hl .sm{color:var(--mintTx);font-size:15px}
+.save-n{margin-top:14px;font-size:12px;color:var(--ink2);line-height:1.9}
+.price-note{margin-top:22px;padding:15px 18px;background:var(--paper);
+  border-left:3px solid var(--ai);font-size:12px;color:var(--ink2);line-height:2}
+
+/* ============ 流れ ============ */
+.flow{counter-reset:s;display:grid;gap:1px;background:var(--rule);
+  border:1px solid var(--rule)}
+.fl{background:var(--card);padding:26px 30px;
+  display:grid;grid-template-columns:52px minmax(0,1fr);gap:22px;align-items:start}
+.fl-n{counter-increment:s;font-family:var(--fm);font-size:11px;color:var(--ink3)}
+.fl-n::before{content:counter(s,decimal-leading-zero);
+  font-family:var(--fd);font-size:27px;color:var(--ai);display:block;
+  line-height:1;margin-bottom:4px}
+.fl h4{font-family:var(--fb);font-size:16.5px;font-weight:700;margin-bottom:7px}
+.fl p{font-size:13.5px;color:var(--ink2);line-height:1.95}
+.fl .when{font-family:var(--fm);font-size:11px;color:var(--ink3);margin-top:8px}
+
+/* ============ よくある質問 ============ */
+.qa{border-top:1px solid var(--rule)}
+.qa details{border-bottom:1px solid var(--rule)}
+.qa summary{padding:22px 40px 22px 0;cursor:pointer;list-style:none;
+  font-family:var(--fb);font-size:15.5px;font-weight:700;
+  position:relative;line-height:1.7}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"＋";position:absolute;right:6px;top:22px;
+  font-family:var(--fm);color:var(--ink3);transition:.2s}
+.qa details[open] summary::after{content:"−";color:var(--shu)}
+.qa .ans{padding:0 40px 24px 0;font-size:14px;color:var(--ink2);line-height:2}
+
+/* ============ 問い合わせ ============ */
+.contact{background:var(--cream);color:var(--ink);
+  border-top:1px solid var(--creamIn)}
+.contact h2{color:var(--creamTx);margin-bottom:20px}
+.contact .sec-lead{color:var(--ink2);max-width:520px;margin:17px auto 0;
+  font-size:14.5px;text-align:center}
+.contact .btn-fill{background:#A83828;color:#FFFFFF;border-color:#A83828}
+.contact .btn-fill:hover{background:var(--shu);border-color:var(--shu);color:var(--paper)}
+.contact .btn-line{border-color:var(--creamTx);color:var(--creamTx);background:#FFFFFF}
+.contact .btn-line:hover{background:var(--creamTx);color:#FFFFFF}
+.contact .cbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cinfo{margin-top:36px;padding-top:26px;border-top:1px solid var(--creamIn);
+  font-family:var(--fm);font-size:12.5px;color:var(--ink2);
+  line-height:2.1;text-align:center;max-width:820px;margin-left:auto;margin-right:auto}
+
+
+/* ---- 問い合わせ ---- */
+.ct-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);
+  gap:14px;text-align:left;max-width:820px;margin:0 auto}
+.ct-card{background:#FFFFFF;border:1px solid var(--creamIn);padding:24px 22px}
+.ct-h{font-size:15px;font-weight:700;color:var(--creamTx);
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--creamIn)}
+.ct-tel{display:block;font-family:var(--fm);font-size:26px;font-weight:600;
+  color:var(--shu);letter-spacing:.02em;margin-bottom:10px}
+.ct-tel:hover{text-decoration:underline}
+.ct-n{font-size:11.5px;color:var(--ink3);line-height:1.8;margin-top:10px}
+.fld{margin-bottom:13px}
+.fld label{display:flex;align-items:center;gap:7px;font-size:12.5px;
+  font-weight:700;color:var(--ink2);margin-bottom:5px}
+.fld label i{font-style:normal;font-size:10px;padding:2px 6px;
+  background:var(--rose);color:var(--roseTx);border-radius:2px;font-weight:600}
+.fld input,.fld select,.fld textarea{
+  width:100%;padding:11px 12px;min-height:44px;
+  border:1px solid var(--rule);background:var(--paper);
+  font-family:var(--fb);font-size:14px;color:var(--ink);
+  border-radius:2px;-webkit-appearance:none;appearance:none}
+.fld textarea{min-height:76px;resize:vertical;line-height:1.7}
+.fld select{background-image:
+  linear-gradient(45deg,transparent 50%,var(--ink3) 50%),
+  linear-gradient(135deg,var(--ink3) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+  padding-right:34px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{
+  border-color:var(--ai);background:#FFFFFF;outline:none;
+  box-shadow:0 0 0 3px rgba(46,112,117,.12)}
+.fld input.ng,.fld select.ng{border-color:var(--shu);background:var(--rose)}
+.fld-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f-err{min-height:19px;font-size:12px;color:var(--shu);
+  font-weight:700;margin-bottom:6px}
+.f-send{width:100%;justify-content:center;text-align:center}
+
+/* ============ フッタ ============ */
+footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
+  background-color:var(--paper)}
+.fin{max-width:1120px;margin:0 auto;display:flex;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.fnav{display:flex;gap:20px;flex-wrap:wrap}
+.fnav a:hover{color:var(--ink)}
+
+/* ============ 画面に入ったら現れる ============ */
+.rv{opacity:0;transform:translateY(16px);
+  transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ============ 狭い画面 ============ */
+@media(max-width:900px){
+  nav.pc,.hd .cta-hd{display:none}
+  .burger{display:flex}
+  .hero{padding:88px 22px 44px}
+  .sp-br{display:inline}
+  .h1-sub{font-size:14px;margin-top:17px}
+  .hero-in{grid-template-columns:minmax(0,1fr);gap:38px}
+  .donut{width:84px;height:84px}
+  .donut-wrap{gap:13px}
+  .pick-row{grid-template-columns:64px minmax(0,1fr) 40px;gap:7px}
+  .chart-ft{gap:10px}
+  .chart-ft b{font-size:19px}
+  .pgrid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ct-wrap{grid-template-columns:minmax(0,1fr)}
+  .ct-tel{font-size:23px}
+  .cmp-row{grid-template-columns:minmax(0,1fr);gap:4px;padding:14px 16px}
+  .cmp-head{display:none}
+  .cmp-row span:nth-child(3)::before{content:"集団塾の目安　"}
+  .cmp-note{padding:14px 16px}
+  .m{grid-template-columns:minmax(0,1fr);gap:14px;padding:28px 20px}
+  .pipe{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 8px}
+  .pipe::before{display:none}
+  .pipe-icon{width:60px;height:60px}
+  .pipe-icon svg{width:32px;height:32px}
+  .pipe-step b{font-size:17px}
+  .pat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sc-row{font-size:12.5px;padding:8px 12px;gap:10px}
+  .pnum b{font-size:50px}
+  .pq{font-size:17px}
+  .lv-row{grid-template-columns:minmax(0,1fr) 76px;gap:8px}
+  .lv-row em{grid-column:1/-1;text-align:left;margin-top:2px}
+  .cal-row{grid-template-columns:34px 52px minmax(0,1fr);gap:7px;
+    font-size:11.5px;padding:9px 11px}
+  .cal-row i{display:block;margin:2px 0 0}
+  .fig-adj{grid-template-columns:minmax(0,1fr);gap:6px}
+  .adj{display:grid;grid-template-columns:56px minmax(0,1fr);
+    gap:12px;text-align:left;align-items:center;padding:12px 14px}
+  .adj b{font-size:26px}
+  .adj span{margin:0}
+  .adj em{grid-column:2}
+  
+  
+  section{padding:64px 22px}
+  .bar-wrap{padding:14px 12px}
+  .bar-day{width:24px;font-size:13px}
+  .bar-scale{margin-left:34px}
+  .bar i{font-size:10px}
+  
+  
+  
+  .week-tb thead{display:none}
+  .week-tb tbody th,.week-tb td{display:block;width:auto;
+    border-bottom:none;padding:5px 15px}
+  .week-tb tbody th{padding-top:15px}
+  .week-tb tr{display:block;border-bottom:1px solid var(--rule)}
+  .week-tb tr:last-child{border-bottom:none}
+  .week-tb .t{padding-top:0}
+  .fl{grid-template-columns:minmax(0,1fr);gap:10px;padding:22px 20px}
+  .fl-n::before{display:inline-block;margin-right:8px;margin-bottom:0}
+  .amount b{font-size:40px}
+  .unit-grid{grid-template-columns:minmax(0,1fr);gap:10px}
+  .plans{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .save{padding:18px 14px 16px}
+  .save-row{grid-template-columns:minmax(0,1fr) 82px;gap:8px;
+    padding:10px 12px;font-size:12px}
+  .save-row .sw{grid-column:2;text-align:right;font-size:10.5px}
+  .save-h span:last-child{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .mk,
+  
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="#top" class="logo">研数舎<em>KENSUSHA</em></a>
+    <nav class="pc">
+      <a href="#why">課題</a>
+      <a href="#method">仕組み</a>
+      <a href="#week">1週間</a>
+      <a href="#price">料金</a>
+      <a href="#flow">入塾まで</a>
+      <a href="#qa">よくある質問</a>
+    </nav>
+    <a href="#contact" class="cta-hd">無料の学習診断</a>
+    <button class="burger" id="bg" aria-label="メニューを開く" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="sp-nav" id="spnav">
+  <a href="#why">課題</a>
+  <a href="#method">仕組み</a>
+  <a href="#week">1週間</a>
+  <a href="#price">料金</a>
+  <a href="#flow">入塾まで</a>
+  <a href="#qa">よくある質問</a>
+  <a href="#contact" class="cta-hd">無料の学習診断</a>
+</div>
+
+<!-- ============ ヒーロー ============ -->
+<div class="hero graph" id="top">
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow">大学受験｜定員17名｜東京都大田区</div>
+      <h1>
+        <span class="l">「何をやるか」で、</span>
+        <span class="l"><span class="u">もう迷わせない。</span></span>
+      </h1>
+      <p class="h1-sub">
+        入塾時の診断から入試まで。<br class="sp-br">
+        <b>46週間の学習を、1コマ単位で設計します。</b>
+      </p>
+      <p class="lead">
+        成績が伸びない原因は、才能でも勉強量でもありません。
+        いま本人に必要な問題が、特定できていないことです。<br><br>
+        何を、どの順で、何問解くか。研数舎はそのすべてを、
+        始まる前に決めておきます。生徒は考えずに、机に向かうだけです。
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-fill">無料の学習診断を受ける</a>
+        <a href="#method" class="btn btn-line">仕組みを見る</a>
+      </div>
+      <p class="hero-note">所要2時間・無料／診断結果と46週間の計画をその場でお渡しします</p>
+    </div>
+
+    <!-- 署名要素：学習の見取り図 -->
+    <div class="chart" id="chart">
+      <div class="chart-hd">
+        <b>学習の見取り図</b>
+        <span>ある生徒の例</span>
+      </div>
+
+      <div class="chart-bd">
+        <!-- いまの状態 -->
+        <div class="stage">
+          <div class="stage-t"><i>1</i>いまの状態を知る</div>
+          <div class="donut-wrap">
+            <svg class="donut" viewBox="0 0 42 42" role="img"
+                 aria-label="45単元のうち、手が出ない7単元、あと少し12単元、できる26単元">
+              <circle class="dn-bg" cx="21" cy="21" r="15.9"/>
+              <circle class="dn dn0" cx="21" cy="21" r="15.9"/>
+              <circle class="dn dn1" cx="21" cy="21" r="15.9"/>
+              <circle class="dn dn3" cx="21" cy="21" r="15.9"/>
+              <text class="dn-n" x="21" y="20.5">45</text>
+              <text class="dn-l" x="21" y="25.5">単元</text>
+            </svg>
+            <ul class="dn-lg">
+              <li><i class="c0"></i>手が出ない<b>7</b></li>
+              <li><i class="c1"></i>あと少し<b>12</b></li>
+              <li><i class="c3"></i>できる<b>26</b></li>
+            </ul>
+          </div>
+          <p class="stage-n">
+            志望校まで、あと<b>19単元</b>を引き上げます
+          </p>
+        </div>
+
+        <!-- やることが決まる -->
+        <div class="stage">
+          <div class="stage-t"><i>2</i>やることが決まる</div>
+          <div class="pick">
+            <div class="pick-row">
+              <span class="pk-u">2次方程式</span>
+              <span class="pk-b"><em class="c0" style="--w:88%"></em></span>
+              <span class="pk-n">42問</span>
+            </div>
+            <div class="pick-row">
+              <span class="pk-u">確率</span>
+              <span class="pk-b"><em class="c1" style="--w:58%"></em></span>
+              <span class="pk-n">28問</span>
+            </div>
+            <div class="pick-row">
+              <span class="pk-u">数列</span>
+              <span class="pk-b"><em class="c3" style="--w:24%"></em></span>
+              <span class="pk-n">11問</span>
+            </div>
+            <p class="pick-note">苦手なところほど、多く時間を配ります</p>
+            <div class="pick-sum">
+              <span>1年で解く<b>857</b>問</span>
+              <span>使う教材<b>4</b>冊</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1年で届く -->
+        <div class="stage">
+          <div class="stage-t"><i>3</i>1年かけて届かせる</div>
+          <div class="path">
+            <svg viewBox="0 0 300 96" class="path-svg" role="img"
+                 aria-label="4月から翌年2月にかけて到達度が上がっていく線グラフ">
+              <defs>
+                <linearGradient id="pg" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0"   stop-color="#E4614F"/>
+                  <stop offset="0.35" stop-color="#E8934A"/>
+                  <stop offset="0.7" stop-color="#7FB069"/>
+                  <stop offset="1"   stop-color="#3E8E7E"/>
+                </linearGradient>
+                <linearGradient id="pf" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#7FB069" stop-opacity=".22"/>
+                  <stop offset="1" stop-color="#7FB069" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line class="gl" x1="0" y1="78" x2="300" y2="78"/>
+              <line class="gl" x1="0" y1="52" x2="300" y2="52"/>
+              <line class="gl" x1="0" y1="26" x2="300" y2="26"/>
+              <line class="goal" x1="0" y1="22" x2="300" y2="22"/>
+              <path class="pa-f" d="M8 74 C70 70 96 58 138 48 S214 30 292 20 L292 88 L8 88 Z"/>
+              <path class="pa" d="M8 74 C70 70 96 58 138 48 S214 30 292 20"/>
+              <circle class="pt s" cx="8" cy="74" r="4"/>
+              <circle class="pt e" cx="292" cy="20" r="5"/>
+            </svg>
+            <div class="path-x"><span>4月</span><span>9月</span><span>翌2月</span></div>
+            <div class="path-tag"><span class="s">いま</span><span class="e">志望校</span></div>
+            <div class="gates">
+              <span class="gt"><i>6月</i>基礎の完成</span>
+              <span class="gt"><i>9月</i>標準の完成</span>
+              <span class="gt"><i>12月</i>応用の完成</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-ft">
+        <span>週にかよう<br><b>18.5</b>時間</span>
+        <span>1年で解く<br><b id="c2">0</b>問</span>
+        <span>決めておく<br><b id="c3">0</b>コマ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 課題 ============ -->
+<section class="problem" id="why">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">01　塾に通わせているのに、伸びない</div>
+      <h2>問題は「勉強量」ではなく、<br>時間の使われ方にあります。</h2>
+      <p class="sec-lead">
+        週に何時間勉強しているかより、その時間が何に使われているか。
+        伸び悩むご家庭に共通するのは、次の3つです。
+      </p>
+    </div>
+    <div class="pgrid rv">
+      <div class="pcell">
+        <p class="pnum">年間<b>77</b>時間</p>
+        <p class="pq">「何をやるか」を<br>決めるために消える時間</p>
+        <p class="pa">
+          自習のたびに教材と範囲を決めるのに20分かかるとすると、
+          週5日で年間77時間になります。
+          これは授業に換算して51回分。迷っている時間は、勉強した時間には入りません。
+        </p>
+      </div>
+      <div class="pcell">
+        <p class="pnum">授業の<b>2</b>割</p>
+        <p class="pq">本人に必要だった<br>内容の割合</p>
+        <p class="pa">
+          集団授業は全員に同じ内容を扱います。
+          すでに解ける単元にも、まだ手が出ない単元にも同じ時間が配分されます。
+          残りの8割は、必要な人には必要でも、その子には不要な時間です。
+        </p>
+      </div>
+      <div class="pcell">
+        <p class="pnum"><b>1</b>週間</p>
+        <p class="pq">「わかった」が<br>消えるまでの時間</p>
+        <p class="pa">
+          授業を受けた直後は理解できています。
+          しかし自力で再現する訓練をしなければ、翌週には解けません。
+          必要なのは解説を聞いた回数ではなく、自力で解いた回数です。
+        </p>
+      </div>
+    </div>
+  </div>
+  </section>
+
+<!-- ============ 仕組み ============ -->
+<section id="method">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">02　4つの仕組み</div>
+      <h2>設計してから、始める。</h2>
+      <p class="sec-lead">
+        授業は週1回だけ。残りはすべて演習です。
+        その演習が成果に変わるよう、始める前に設計を終えておきます。
+      </p>
+    </div>
+
+    <!-- 流れの図 -->
+    <div class="pipe rv">
+      <div class="pipe-step">
+        <div class="pipe-icon">
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <rect x="10" y="8" width="40" height="44" rx="2" class="sk"/>
+            <line x1="18" y1="20" x2="42" y2="20" class="sl"/>
+            <line x1="18" y1="28" x2="42" y2="28" class="sl"/>
+            <line x1="18" y1="36" x2="34" y2="36" class="sl"/>
+            <path d="M34 42 l4 4 l8 -9" class="sc"/>
+          </svg>
+        </div>
+        <span class="pipe-no">01</span>
+        <b>測る</b>
+        <span class="pipe-s">診断テスト</span>
+        <em>45単元の到達度</em>
+      </div>
+      <div class="pipe-arrow" aria-hidden="true"></div>
+      <div class="pipe-step">
+        <div class="pipe-icon">
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <circle cx="30" cy="14" r="6" class="sk"/>
+            <circle cx="14" cy="42" r="6" class="sk"/>
+            <circle cx="30" cy="42" r="6" class="skf"/>
+            <circle cx="46" cy="42" r="6" class="sk"/>
+            <line x1="30" y1="20" x2="16" y2="36" class="sl"/>
+            <line x1="30" y1="20" x2="30" y2="36" class="sl"/>
+            <line x1="30" y1="20" x2="44" y2="36" class="sl"/>
+          </svg>
+        </div>
+        <span class="pipe-no">02</span>
+        <b>分ける</b>
+        <span class="pipe-s">解き方の型</span>
+        <em>254パターン</em>
+      </div>
+      <div class="pipe-arrow" aria-hidden="true"></div>
+      <div class="pipe-step">
+        <div class="pipe-icon">
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <rect x="8" y="12" width="44" height="36" rx="2" class="sk"/>
+            <line x1="8" y1="22" x2="52" y2="22" class="sl"/>
+            <line x1="19" y1="22" x2="19" y2="48" class="sl"/>
+            <line x1="30" y1="22" x2="30" y2="48" class="sl"/>
+            <line x1="41" y1="22" x2="41" y2="48" class="sl"/>
+            <line x1="8" y1="35" x2="52" y2="35" class="sl"/>
+            <rect x="20" y="23" width="9" height="11" class="sf"/>
+            <rect x="42" y="36" width="9" height="11" class="sf"/>
+          </svg>
+        </div>
+        <span class="pipe-no">03</span>
+        <b>組む</b>
+        <span class="pipe-s">46週間の計画</span>
+        <em>690コマを指定</em>
+      </div>
+      <div class="pipe-arrow" aria-hidden="true"></div>
+      <div class="pipe-step">
+        <div class="pipe-icon">
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <path d="M46 30 a16 16 0 1 1 -5 -11.6" class="sk"/>
+            <path d="M41 10 l0 9 l-9 0" class="sc"/>
+            <circle cx="30" cy="30" r="3.4" class="sfa"/>
+          </svg>
+        </div>
+        <span class="pipe-no">04</span>
+        <b>直す</b>
+        <span class="pipe-s">毎週の再設計</span>
+        <em>年46回</em>
+      </div>
+    </div>
+
+    <!-- 4つの中身 -->
+    <div class="methods">
+      <div class="m rv">
+        <div class="m-no"><span class="mn-n">01</span><b>測る</b></div>
+        <div>
+          <h3>単元ごとの到達度を、5段階で数値化する</h3>
+          <p>
+            「苦手」ではなく「この単元のこの型が使えていない」まで特定します。
+            出題は主要26単元、残りは前提となる単元との関係から推定します。
+          </p>
+          <div class="fig-lv">
+            <div class="lv-row"><span>2次方程式</span>
+              <div class="lv"><i class="v0"></i><i></i><i></i><i></i><i></i></div>
+              <em class="t0">手が出ない</em></div>
+            <div class="lv-row"><span>三角比</span>
+              <div class="lv"><i class="v1"></i><i class="v1"></i><i></i><i></i><i></i></div>
+              <em class="t1">解説を見れば</em></div>
+            <div class="lv-row"><span>2次関数</span>
+              <div class="lv"><i class="v2"></i><i class="v2"></i><i class="v2"></i><i></i><i></i></div>
+              <em class="t2">解けるが遅い</em></div>
+            <div class="lv-row"><span>確率</span>
+              <div class="lv"><i class="v3"></i><i class="v3"></i><i class="v3"></i><i class="v3"></i><i></i></div>
+              <em class="t3">速く解ける</em></div>
+            <div class="lv-row"><span>数と式</span>
+              <div class="lv"><i class="v4"></i><i class="v4"></i><i class="v4"></i><i class="v4"></i><i class="v4"></i></div>
+              <em class="t4">応用も解ける</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m rv">
+        <div class="m-no"><span class="mn-n">02</span><b>分ける</b></div>
+        <div>
+          <h3>解き方の「型」まで分解して管理する</h3>
+          <p>
+            単元単位では対策が粗すぎます。「2次関数の最大最小」ひとつでも、
+            解き方は7つの型に分かれます。
+          </p>
+          <div class="fig-pat">
+            <div class="pat-top">
+              <span class="pat-u">2次関数の最大最小</span>
+              <span class="pat-c">ひとつの単元</span>
+            </div>
+            <div class="pat-line" aria-hidden="true"></div>
+            <div class="pat-grid">
+              <span class="pk ok">軸も範囲も固定<i>できる</i></span>
+              <span class="pk hot">軸に文字を含む<i>つまずいた</i></span>
+              <span class="pk ok">範囲に文字を含む<i>できる</i></span>
+              <span class="pk hot">逆問題<i>つまずいた</i></span>
+              <span class="pk ok">2変数<i>できる</i></span>
+              <span class="pk ok">置き換え<i>できる</i></span>
+              <span class="pk ok">図形への応用<i>できる</i></span>
+            </div>
+            <div class="pat-out">
+              <span class="pat-arw" aria-hidden="true"></span>
+              <p><b>つまずいた2つの型</b>だけを、教材をまたいで集めます</p>
+              <div class="pat-src">
+                <span>基礎問 例題42</span>
+                <span>1対1 例題18</span>
+                <span>CanPass 問3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m rv">
+        <div class="m-no"><span class="mn-n">03</span><b>組む</b></div>
+        <div>
+          <h3>入試日から逆算し、690コマを事前に決める</h3>
+          <p>
+            水準は飛ばしません。基礎が抜けている単元は、
+            志望校が難関でも基礎教材から入れ直します。
+          </p>
+          <div class="fig-cal">
+            <div class="cal-row cal-h"><span>曜日</span><span>時刻</span><span>内容</span></div>
+            <div class="cal-row"><span>月</span><span>13:00</span>
+              <span>2次関数の最大最小　基礎問 例題42-47<i>6問</i></span></div>
+            <div class="cal-row"><span>月</span><span>14:00</span>
+              <span>2次関数の最大最小　基礎問 例題48-52<i>5問</i></span></div>
+            <div class="cal-row"><span>月</span><span>15:00</span>
+              <span>2次方程式・判別式　基礎問 例題53-58<i>6問</i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m rv">
+        <div class="m-no"><span class="mn-n">04</span><b>直す</b></div>
+        <div>
+          <h3>毎週、実績を見て翌週を組み直す</h3>
+          <p>
+            生徒は毎日、その日の手応えを5段階で記録します。
+            その週の記録をもとに、翌週の量と範囲を決めます。
+          </p>
+          <div class="fig-scale">
+            <div class="sc-row"><span class="sc-n s5">5</span>
+              <span class="sc-t">自力で解けた</span></div>
+            <div class="sc-row"><span class="sc-n s4">4</span>
+              <span class="sc-t">解けたが時間がかかった</span></div>
+            <div class="sc-row"><span class="sc-n s3">3</span>
+              <span class="sc-t">解説を読んで分かった</span></div>
+            <div class="sc-row"><span class="sc-n s2">2</span>
+              <span class="sc-t">読んでも分からない</span></div>
+            <div class="sc-row"><span class="sc-n s1">1</span>
+              <span class="sc-t">手が出なかった</span></div>
+          </div>
+          <div class="fig-adj">
+            <div class="adj a0"><span class="ad-h">1〜2が多い週</span>
+              <em>先に進まず<br>同じところをやり直す</em></div>
+            <div class="adj a2"><span class="ad-h">3〜4が中心の週</span>
+              <em>そのまま<br>予定どおり進める</em></div>
+            <div class="adj a4"><span class="ad-h">5が多い週</span>
+              <em>問題数を絞って<br>先へ進める</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+<!-- ============ 数値 ============ -->
+<section class="facts">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">03　数字で見る研数舎</div>
+      <h2>時間あたりで見ると、<br>集団塾より安くなります。</h2>
+      <p class="sec-lead">
+        月額は決して安くありません。ただ、預ける時間の総量で割ると、見え方が変わります。
+      </p>
+    </div>
+    <dl class="fgrid rv">
+      <div class="f">
+        <dt>週の在席時間</dt>
+        <dd>8.5<small>〜40時間</small></dd>
+        <p class="note">受講する科目数で<br>決まります</p>
+      </div>
+      <div class="f">
+        <dt>1時間あたりの費用</dt>
+        <dd>1,340<small>円〜</small></dd>
+        <p class="note">私立文系の場合<br>集団塾の目安は2,600円前後</p>
+      </div>
+      <div class="f">
+        <dt>1コマの指定項目</dt>
+        <dd>4</dd>
+        <p class="note">教材・範囲<br>問題数・進め方</p>
+      </div>
+      <div class="f">
+        <dt>定員</dt>
+        <dd>17<small>名</small></dd>
+        <p class="note">満席になり次第<br>受付を締め切ります</p>
+      </div>
+    </dl>
+    <div class="cmp rv">
+      <div class="cmp-row cmp-head">
+        <span></span><span>研数舎</span><span>集団塾の目安</span>
+      </div>
+      <div class="cmp-row">
+        <span>週の在席時間</span><span><b>18.5</b>時間</span><span>3時間</span>
+      </div>
+      <div class="cmp-row">
+        <span>1時間あたりの費用</span><span><b>1,340</b>円</span><span>2,667円</span>
+      </div>
+      <div class="cmp-row">
+        <span>学習内容の決め方</span><span><b>1コマ単位で個別</b></span><span>クラス一律</span>
+      </div>
+      <div class="cmp-row">
+        <span>計画の見直し</span><span><b>毎週</b></span><span>学期ごと</span>
+      </div>
+      <p class="cmp-note">
+        研数舎は私立文系のパターン（授業1科目＋管理2科目・月95,000円）で算出。
+        集団塾の目安は、週2回90分・年45週・月額3万円として算出した参考値です。
+      </p>
+    </div>
+  </div>
+  </section>
+
+<!-- ============ 1週間 ============ -->
+<section id="week">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">04　1週間の過ごし方</div>
+      <h2>授業は週1回。<br>残りは設計された演習に使う。</h2>
+      <p class="sec-lead">
+        授業で先に教えることはしません。演習で進めた範囲を確認テストで検証し、
+        できなかった箇所を授業で解消します。
+      </p>
+    </div>
+
+    <div class="rv">
+      <div class="bar-wrap">
+        <div class="bar-scale" aria-hidden="true">
+          <span>10</span><span>12</span><span>14</span><span>16</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">月</span>
+          <div class="bar"><i class="ex" style="left:37.5%;width:37.5%">演習 3時間</i></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">火</span>
+          <div class="bar">
+            <i class="ts" style="left:37.5%;width:18.75%">テスト</i>
+            <i class="ls" style="left:56.25%;width:21.875%">授業</i>
+          </div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">水</span>
+          <div class="bar"><i class="ex" style="left:37.5%;width:37.5%">演習 3時間</i></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">木</span>
+          <div class="bar"><i class="hm" style="left:62.5%;width:25%">自宅 復習2時間</i></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">金</span>
+          <div class="bar"><i class="ex" style="left:37.5%;width:37.5%">演習 3時間</i></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-day">土</span>
+          <div class="bar"><i class="ex" style="left:0%;width:50%">演習 4時間</i></div>
+        </div>
+        <div class="bar-row sp">
+          <span class="bar-day">日</span>
+          <div class="bar"><i class="sp2" style="left:0%;width:100%">予備日</i></div>
+        </div>
+        <div class="bar-legend">
+          <span><i class="ex"></i>演習</span>
+          <span><i class="ts"></i>確認テスト</span>
+          <span><i class="ls"></i>授業</span>
+          <span><i class="hm"></i>自宅</span>
+          <span class="tot">週18時間</span>
+        </div>
+      </div>
+
+      <div class="cycle">
+        <div class="cy c-a"><span class="cy-n">1</span>
+          <b>演習</b><span class="cy-d">計画どおりに進める</span>
+          <em>週15時間</em></div>
+        <div class="cy-a" aria-hidden="true"></div>
+        <div class="cy c-b"><span class="cy-n">2</span>
+          <b>確認テスト</b><span class="cy-d">型を網羅して出題</span>
+          <em>週90分</em></div>
+        <div class="cy-a" aria-hidden="true"></div>
+        <div class="cy c-c"><span class="cy-n">3</span>
+          <b>授業</b><span class="cy-d">できなかった型を解説</span>
+          <em>週90分</em></div>
+        <div class="cy-a" aria-hidden="true"></div>
+        <div class="cy c-d"><span class="cy-n">4</span>
+          <b>翌週の計画</b><span class="cy-d">実績を見て組み直す</span>
+          <em>毎週</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 料金 ============ -->
+<section class="price" id="price">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">05　料金</div>
+      <h2>必要な科目を、<br>必要な分だけ組む。</h2>
+      <p class="sec-lead">
+        料金は科目と演習量の積み上げで決まります。
+        学年や状況に応じて、途中で増減できます。
+      </p>
+    </div>
+
+    <div class="rv">
+      <div class="unit-grid">
+        <div class="unit u-main">
+          <div class="u-t">授業あり科目</div>
+          <div class="u-p"><b>60,000</b><span>円／月・1科目</span></div>
+          <ul class="u-l">
+            <li>1対1授業 1時間</li>
+            <li>演習 2時間 × 3回</li>
+            <li>確認テスト 1時間</li>
+            <li>科目の学習管理</li>
+          </ul>
+          <p class="u-n">数学・英語・物理</p>
+        </div>
+        <div class="unit u-sub">
+          <div class="u-t">管理科目</div>
+          <div class="u-p"><b>20,000</b><span>円／月・1科目</span></div>
+          <ul class="u-l">
+            <li>演習 2時間 × 2回</li>
+            <li>確認テスト 1時間</li>
+            <li>科目の学習管理</li>
+          </ul>
+          <p class="u-n">国語・理科・社会も対象</p>
+        </div>
+        <div class="unit u-add">
+          <div class="u-t">演習の追加</div>
+          <div class="u-p"><b>10,000</b><span>円／月・1枠</span></div>
+          <ul class="u-l">
+            <li>演習 2時間</li>
+          </ul>
+          <p class="u-n">量を増やしたいとき</p>
+        </div>
+      </div>
+
+      <div class="plan-h">受講の例</div>
+      <div class="plans">
+        <div class="pl">
+          <div class="pl-t">高1・高2</div>
+          <div class="pl-s">授業1科目</div>
+          <div class="pl-b"><i style="width:21%"></i></div>
+          <div class="pl-m"><b>60,000</b>円</div>
+          <div class="pl-w">週3日・8.5時間</div>
+        </div>
+        <div class="pl">
+          <div class="pl-t">私立文系</div>
+          <div class="pl-s">授業1＋管理2</div>
+          <div class="pl-b"><i style="width:42%"></i></div>
+          <div class="pl-m"><b>95,000</b>円</div>
+          <div class="pl-w">週5日・18.5時間</div>
+        </div>
+        <div class="pl">
+          <div class="pl-t">私立理系</div>
+          <div class="pl-s">授業3科目</div>
+          <div class="pl-b"><i style="width:80%"></i></div>
+          <div class="pl-m"><b>180,000</b>円</div>
+          <div class="pl-w">週6日・24.5時間</div>
+        </div>
+        <div class="pl">
+          <div class="pl-t">国公立</div>
+          <div class="pl-s">授業3＋管理3</div>
+          <div class="pl-b"><i style="width:100%"></i></div>
+          <div class="pl-m"><b>225,000</b>円</div>
+          <div class="pl-w">週7日・40時間</div>
+        </div>
+      </div>
+
+      <div class="save">
+        <div class="save-t">授業を絞れば、費用は下がります</div>
+        <p class="save-p">
+          すでに得意な科目は、授業を付けずに管理と演習だけで伸びます。
+          入塾時のテストをもとに、どの科目に授業が必要かを提案します。
+        </p>
+        <div class="save-row save-h">
+          <span>国公立志望の場合</span><span>月額</span><span>週の在席</span>
+        </div>
+        <div class="save-row">
+          <span>英語・数学・物理すべて授業あり</span>
+          <span class="sm">225,000円</span><span class="sw">40.0時間</span>
+        </div>
+        <div class="save-row">
+          <span>英語・数学は授業／他は管理</span>
+          <span class="sm">175,000円</span><span class="sw">37.0時間</span>
+        </div>
+        <div class="save-row hl">
+          <span>数学のみ授業／他は管理</span>
+          <span class="sm">125,000円</span><span class="sw">34.0時間</span>
+        </div>
+        <p class="save-n">
+          授業を絞っても、毎日通って学習量を確保するという中核は変わりません。
+          学習が進んで自走できるようになった科目は、途中で切り替えられます。
+        </p>
+      </div>
+
+      <p class="price-note">
+        入塾金 38,500円（税込）。表示はすべて税込です。<br>
+        管理科目は2科目目から割引が入ります（2科目目15,000円／3科目目以降10,000円）。<br>
+        教材は市販のものを使用し、購入費は別途かかります（年間2〜3万円程度）。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 入塾まで ============ -->
+<section id="flow">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">06　入塾までの流れ</div>
+      <h2>まず、現在地を測ってください。</h2>
+      <p class="sec-lead">
+        診断と計画作成は無料です。結果を見てから判断していただけます。
+      </p>
+    </div>
+    <div class="flow rv">
+      <div class="fl">
+        <div class="fl-n"></div>
+        <div>
+          <h4>お問い合わせ</h4>
+          <p>フォームまたはお電話でご連絡ください。日程を調整します。</p>
+          <p class="when">所要5分</p>
+        </div>
+      </div>
+      <div class="fl">
+        <div class="fl-n"></div>
+        <div>
+          <h4>診断テスト</h4>
+          <p>
+            120分・26問。分からない問題は空欄で構いません。
+            当てずっぽうの正答より、空欄のほうが正確に実力を示します。
+          </p>
+          <p class="when">120分</p>
+        </div>
+      </div>
+      <div class="fl">
+        <div class="fl-n"></div>
+        <div>
+          <h4>結果の説明と計画のお渡し</h4>
+          <p>
+            45単元の習熟度、使う教材と順序、46週間の計画をその場でお見せします。
+            なぜその順序なのかもご説明します。
+          </p>
+          <p class="when">60分／同日</p>
+        </div>
+      </div>
+      <div class="fl">
+        <div class="fl-n"></div>
+        <div>
+          <h4>ご検討</h4>
+          <p>
+            持ち帰ってご検討ください。計画はお渡ししたままで構いません。
+            入塾されない場合も費用はかかりません。
+          </p>
+          <p class="when">期限は設けません</p>
+        </div>
+      </div>
+      <div class="fl">
+        <div class="fl-n"></div>
+        <div>
+          <h4>入塾・開始</h4>
+          <p>
+            アプリのアカウントを発行し、席の予約から始めます。
+            初週は計画の量が適切か確認しながら進めます。
+          </p>
+          <p class="when">お申し込みから3日以内</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ よくある質問 ============ -->
+<section class="qa" id="qa">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">07　よくある質問</div>
+      <h2>ご不明な点</h2>
+    </div>
+    <div class="rv">
+      <details>
+        <summary>どの科目を見てもらえますか</summary>
+        <div class="ans">
+          現在は数学を中心に指導しています。科目を広げるより、
+          1科目の精度を上げることを選んでいます。
+          対応科目は段階的に広げる予定です。
+        </div>
+      </details>
+      <details>
+        <summary>週18時間も通えるか不安です</summary>
+        <div class="ans">
+          部活動や他塾との兼ね合いで調整できます。
+          診断のときに現実的な時間数を伺い、その前提で計画を作ります。
+          実行できない計画に意味はありません。
+        </div>
+      </details>
+      <details>
+        <summary>成績が振るわなくても大丈夫ですか</summary>
+        <div class="ans">
+          問題ありません。到達度が低い単元は、志望校の水準に関わらず
+          基礎から入れ直します。むしろ、どこから抜けているか
+          分からない状態のほうが危険です。
+        </div>
+      </details>
+      <details>
+        <summary>計画どおりに進まなくなったら</summary>
+        <div class="ans">
+          前提として、計画どおりには進みません。
+          毎週組み直すのはそのためです。遅れたときは期間を延ばさず、
+          問題数を絞って調整します。
+        </div>
+      </details>
+      <details>
+        <summary>いつから入塾できますか</summary>
+        <div class="ans">
+          定員に空きがあれば随時受け付けています。
+          ただし開始が遅いほど到達できる範囲は狭まります。
+          残り期間で何がどこまで可能かを、診断のときに正直にお伝えします。
+        </div>
+      </details>
+      <details>
+        <summary>保護者への報告はありますか</summary>
+        <div class="ans">
+          月1回、数値でご報告します。「頑張っています」ではなく、
+          計画に対して何%進んだか、手応えの平均がいくつかをお伝えします。
+        </div>
+      </details>
+    </div>
+  </div>
+  </section>
+
+<!-- ============ 問い合わせ ============ -->
+<section class="contact" id="contact">
+  <div class="inner">
+    <div class="sec-hd rv" style="text-align:center;margin-bottom:34px">
+      <div class="sec-no" style="color:var(--shu)">08　お申し込み</div>
+      <h2>まず、現在地を測ってください。</h2>
+      <p class="sec-lead" style="margin-left:auto;margin-right:auto">
+        診断テストと学習計画の作成は無料です。<br>
+        結果をご覧いただいてから、入塾をご判断ください。
+      </p>
+    </div>
+
+    <div class="ct-wrap rv">
+      <!-- 電話 -->
+      <div class="ct-card">
+        <div class="ct-h">電話で相談する</div>
+        <a href="tel:0312345678" class="ct-tel">03-1234-5678</a>
+        <p class="ct-n">平日 14:00-21:00／土 10:00-19:00</p>
+      </div>
+
+      <!-- フォーム -->
+      <div class="ct-card ct-form">
+        <div class="ct-h">申し込みフォーム</div>
+        <div class="fld">
+          <label for="f-name">お名前<i>必須</i></label>
+          <input id="f-name" type="text" placeholder="山田 太郎" autocomplete="name">
+        </div>
+        <div class="fld">
+          <label for="f-mail">メールアドレス<i>必須</i></label>
+          <input id="f-mail" type="email" placeholder="example@mail.com" autocomplete="email">
+        </div>
+        <div class="fld">
+          <label for="f-tel">お電話番号</label>
+          <input id="f-tel" type="tel" placeholder="090-0000-0000" autocomplete="tel">
+        </div>
+        <div class="fld-2">
+          <div class="fld">
+            <label for="f-grade">学年<i>必須</i></label>
+            <select id="f-grade">
+              <option value="">選んでください</option>
+              <option>高校1年</option>
+              <option>高校2年</option>
+              <option>高校3年</option>
+              <option>既卒（浪人）</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="fld">
+            <label for="f-who">お申し込み者</label>
+            <select id="f-who">
+              <option>保護者</option>
+              <option>本人</option>
+            </select>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="f-sub">気になっている科目</label>
+          <select id="f-sub">
+            <option value="">選んでください</option>
+            <option>数学</option>
+            <option>英語</option>
+            <option>物理</option>
+            <option>複数科目</option>
+            <option>まだ決めていない</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="f-msg">ご相談内容（任意）</label>
+          <textarea id="f-msg" rows="3"
+            placeholder="志望校や、現在の状況などをお書きください"></textarea>
+        </div>
+        <p class="f-err" id="f-err" role="alert"></p>
+        <button type="button" class="btn btn-fill f-send" id="f-send">
+          この内容で申し込む
+        </button>
+        <p class="ct-n">
+          送信するとメールソフトが開きます。内容をご確認のうえ送信してください。
+        </p>
+      </div>
+    </div>
+
+    <div class="cinfo rv">
+      研数舎　東京都大田区南六郷◯-◯-◯<br>
+      京急本線 雑色駅 徒歩8分
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fin">
+    <div>© 2026 研数舎</div>
+    <nav class="fnav">
+      <a href="#why">課題</a>
+      <a href="#method">仕組み</a>
+      <a href="#price">料金</a>
+      <a href="#flow">入塾まで</a>
+      <a href="#qa">よくある質問</a>
+      <a href="#contact">お申し込み</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- メニュー --- */
+  var bg = document.getElementById("bg"), sp = document.getElementById("spnav");
+  bg.addEventListener("click", function(){
+    var on = sp.classList.toggle("on");
+    bg.classList.toggle("on", on);
+    bg.setAttribute("aria-expanded", on);
+    bg.setAttribute("aria-label", on ? "メニューを閉じる" : "メニューを開く");
+    document.body.style.overflow = on ? "hidden" : "";
+  });
+  sp.addEventListener("click", function(e){
+    if(e.target.tagName === "A"){
+      sp.classList.remove("on"); bg.classList.remove("on");
+      bg.setAttribute("aria-expanded", false);
+      document.body.style.overflow = "";
+    }
+  });
+
+  /* --- 数字を数え上げる --- */
+  function count(el, to, delay){
+    if(!el) return;
+    if(reduce){ el.textContent = to.toLocaleString(); return; }
+    setTimeout(function(){
+      var t0 = null, dur = 950;
+      function step(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min((ts - t0)/dur, 1);
+        var e = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(to*e).toLocaleString();
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }, delay);
+  }
+
+  /* --- 見取り図を動かす --- */
+  function runChart(){
+    var c = document.getElementById("chart");
+    if(c) c.classList.add("on");
+    count(document.getElementById("c2"), 857, reduce ? 0 : 500);
+    count(document.getElementById("c3"), 690, reduce ? 0 : 640);
+  }
+
+  /* --- 画面に入ったら現れる --- */
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); }
+      });
+    }, {threshold:.14, rootMargin:"0px 0px -40px 0px"});
+    [].forEach.call(document.querySelectorAll(".rv"), function(el){ io.observe(el); });
+
+    var ic = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ runChart(); ic.unobserve(e.target); }
+      });
+    }, {threshold:.25});
+    ic.observe(document.getElementById("chart"));
+  } else {
+    [].forEach.call(document.querySelectorAll(".rv"), function(el){ el.classList.add("on"); });
+    runChart();
+  }
+
+
+  /* --- 申し込みフォーム --- */
+  (function(){
+    var btn = document.getElementById("f-send");
+    if(!btn) return;
+    var MAIL = "info@kensusha.jp";   // ← 実際のアドレスに差し替える
+    var err  = document.getElementById("f-err");
+    var get  = function(id){ return document.getElementById(id); };
+    var ids  = ["f-name","f-mail","f-tel","f-grade","f-who","f-sub","f-msg"];
+
+    ids.forEach(function(id){
+      var el = get(id);
+      if(el) el.addEventListener("input", function(){ el.classList.remove("ng"); });
+      if(el) el.addEventListener("change", function(){ el.classList.remove("ng"); });
+    });
+
+    btn.addEventListener("click", function(){
+      var name  = get("f-name").value.trim();
+      var mail  = get("f-mail").value.trim();
+      var tel   = get("f-tel").value.trim();
+      var grade = get("f-grade").value;
+      var who   = get("f-who").value;
+      var sub   = get("f-sub").value;
+      var msg   = get("f-msg").value.trim();
+
+      /* 検証 */
+      var bad = [];
+      if(!name){ get("f-name").classList.add("ng"); bad.push("お名前"); }
+      if(!mail || mail.indexOf("@") < 1 || mail.indexOf(".") < 0){
+        get("f-mail").classList.add("ng"); bad.push("メールアドレス");
+      }
+      if(!grade){ get("f-grade").classList.add("ng"); bad.push("学年"); }
+      if(bad.length){
+        err.textContent = bad.join("・") + "をご確認ください";
+        var first = document.querySelector(".fld .ng");
+        if(first) first.focus();
+        return;
+      }
+      err.textContent = "";
+
+      /* 本文を組み立てる */
+      var L = [];
+      L.push("研数舎 学習診断のお申し込み");
+      L.push("");
+      L.push("お名前　　　： " + name);
+      L.push("メール　　　： " + mail);
+      if(tel) L.push("電話番号　　： " + tel);
+      L.push("学年　　　　： " + grade);
+      L.push("お申し込み者： " + who);
+      if(sub) L.push("気になる科目： " + sub);
+      if(msg){ L.push(""); L.push("ご相談内容："); L.push(msg); }
+      L.push("");
+      L.push("──────────");
+      L.push("このメールは研数舎のサイトから作成されました。");
+
+      var subject = "【学習診断のお申し込み】" + name + " 様";
+      var href = "mailto:" + MAIL
+               + "?subject=" + encodeURIComponent(subject)
+               + "&body=" + encodeURIComponent(L.join("\n"));
+      window.location.href = href;
+
+      btn.textContent = "メールソフトを開いています";
+      setTimeout(function(){ btn.textContent = "この内容で申し込む"; }, 3200);
+    });
+  })();
+
+  /* --- ヘッダの高さぶんずらして移動 --- */
+  document.addEventListener("click", function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute("href");
+    if(id === "#") return;
+    var t = document.querySelector(id);
+    if(!t) return;
+    e.preventDefault();
+    var y = t.getBoundingClientRect().top + window.pageYOffset - 62;
+    window.scrollTo({top:y, behavior: reduce ? "auto" : "smooth"});
+  });
+})();
+</script>
+</body>
+</html>
