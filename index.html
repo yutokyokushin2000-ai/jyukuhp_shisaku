@@ -4,9 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#FAF9F5">
-<title>「何をやるか」で、もう迷わせない｜大学受験の個別最適化塾</title>
+<meta name="theme-color" content="#FAFAF6">
+<title>「何をやるか」で、もう迷わせない｜研数舎</title>
 <meta name="description" content="診断テストをもとに、志望校までの46週間を1コマ単位で設計します。週8.5〜40時間の学習を管理。定員17名。東京都大田区。">
+<link rel="canonical" href="https://example.com/">
+
+<!-- LINE・SNSで共有したときの見え方 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="研数舎">
+<meta property="og:title" content="「何をやるか」で、もう迷わせない｜研数舎">
+<meta property="og:description" content="入塾時の診断から入試まで、46週間の学習を1コマ単位で設計します。大学受験・定員17名・東京都大田区。">
+<meta property="og:url" content="https://example.com/">
+<meta property="og:image" content="https://example.com/img/ogp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="「何をやるか」で、もう迷わせない｜研数舎">
+<meta name="twitter:description" content="46週間の学習を1コマ単位で設計する塾。定員17名。">
+<meta name="twitter:image" content="https://example.com/img/ogp.jpg">
+
+<!-- アイコン -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%232E7075'/%3E%3Ctext x='32' y='45' font-size='36' font-family='serif' fill='%23fff' text-anchor='middle'%3E研%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "研数舎",
+  "alternateName": "KENSUSHA",
+  "description": "大学受験の個別最適化塾。診断テストをもとに46週間の学習を1コマ単位で設計します。",
+  "url": "https://example.com/",
+  "image": "https://example.com/img/ogp.jpg",
+  "telephone": "+81-3-1234-5678",
+  "priceRange": "¥60,000-¥225,000",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "JP",
+    "addressRegion": "東京都",
+    "addressLocality": "大田区",
+    "streetAddress": "南六郷◯-◯-◯"
+  },
+  "areaServed": { "@type": "City", "name": "東京都大田区" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "14:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday"], "opens": "10:00", "closes": "19:00" }
+  ],
+  "sameAs": []
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "どの科目を見てもらえますか",
+      "acceptedAnswer": { "@type": "Answer",
+      "text": "現在は数学を中心に指導しています。科目を広げるより、1科目の精度を上げることを選んでいます。対応科目は段階的に広げる予定です。" } },
+    { "@type": "Question", "name": "週18時間も通えるか不安です",
+      "acceptedAnswer": { "@type": "Answer",
+      "text": "部活動や他塾との兼ね合いで調整できます。診断のときに現実的な時間数を伺い、その前提で計画を作ります。" } },
+    { "@type": "Question", "name": "成績が振るわなくても大丈夫ですか",
+      "acceptedAnswer": { "@type": "Answer",
+      "text": "問題ありません。到達度が低い単元は、志望校の水準に関わらず基礎から入れ直します。" } },
+    { "@type": "Question", "name": "計画どおりに進まなくなったら",
+      "acceptedAnswer": { "@type": "Answer",
+      "text": "前提として、計画どおりには進みません。毎週組み直すのはそのためです。遅れたときは期間を延ばさず、問題数を絞って調整します。" } },
+    { "@type": "Question", "name": "保護者への報告はありますか",
+      "acceptedAnswer": { "@type": "Answer",
+      "text": "月1回、数値でご報告します。計画に対して何%進んだか、手応えの平均がいくつかをお伝えします。" } }
+  ]
+}
+</script>
+
 <style>
 :root{
   color-scheme:light;
@@ -1008,6 +1083,44 @@ h1 .u::after{
   gap:20px;align-items:start}
 .ph-result{aspect-ratio:3/2;position:sticky;top:80px}
 
+
+/* ---- 講師 ---- */
+.tch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tch{background:#FFFFFF;border:1px solid var(--rule);border-radius:5px;
+  border-top:4px solid var(--ai);padding:24px 22px}
+.tch:nth-child(2){border-top-color:#4E8FA5}
+.tch-hd{display:flex;align-items:center;gap:15px;padding-bottom:16px;
+  margin-bottom:16px;border-bottom:1px solid var(--rule)}
+.tch-ph{width:66px;height:66px;flex-shrink:0;border-radius:50%;
+  background:var(--aiBg);display:flex;align-items:center;
+  justify-content:center;overflow:hidden}
+.tch-ph svg{width:66px;height:66px}
+.tp{fill:#A8C4C6}
+.tch:nth-child(2) .tch-ph{background:var(--sky)}
+.tch:nth-child(2) .tp{fill:#9CBCCB}
+.tch-role{display:inline-block;font-family:var(--fm);font-size:10.5px;
+  letter-spacing:.1em;padding:2px 9px;border-radius:2px;
+  background:var(--ai);color:#FFFFFF;margin-bottom:6px}
+.tch:nth-child(2) .tch-role{background:#4E8FA5}
+.tch-name{font-family:var(--fb);font-size:20px;font-weight:700;
+  color:var(--inkH);line-height:1.3}
+.tch-name span{display:block;font-family:var(--fm);font-size:10.5px;
+  font-weight:400;color:var(--ink3);letter-spacing:.06em;margin-top:3px}
+.tch-sub{font-size:12px;color:var(--ink2);margin-top:6px}
+.tch-msg{font-size:13.5px;line-height:2.0;color:var(--ink2);
+  padding-bottom:16px;margin-bottom:16px;
+  border-bottom:1px dashed var(--rule)}
+.tch-msg b{color:var(--inkH);font-weight:700}
+.tch-list{font-size:12.5px}
+.tch-list > div{display:grid;grid-template-columns:52px minmax(0,1fr);
+  gap:10px;padding:7px 0;align-items:start}
+.tch-list dt{font-size:11px;color:var(--ink3);font-weight:700;padding-top:2px}
+.tch-list dd{color:var(--ink2);line-height:1.75}
+.tch-note{margin-top:18px;background:var(--cream);
+  border-left:3px solid var(--sun);padding:14px 18px;
+  font-size:13px;color:var(--ink2);line-height:1.95}
+.tch-note b{color:var(--creamTx);font-weight:700}
+
 /* ============ フッタ ============ */
 footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   background-color:var(--paper)}
@@ -1038,6 +1151,11 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   .pcell{padding:24px 20px}
   .fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .week-2col,.flow-2col{grid-template-columns:minmax(0,1fr);gap:14px}
+  .tch-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .tch{padding:20px 17px}
+  .tch-ph{width:56px;height:56px}
+  .tch-ph svg{width:56px;height:56px}
+  .tch-name{font-size:18px}
   .cycle{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .cy{padding:13px 10px 11px}
   .cy b{font-size:14px}
@@ -1125,6 +1243,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
       <a href="#method">仕組み</a>
       <a href="#week">1週間</a>
       <a href="#price">料金</a>
+      <a href="#teacher">講師</a>
       <a href="#flow">入塾まで</a>
       <a href="#qa">よくある質問</a>
     </nav>
@@ -1140,6 +1259,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   <a href="#method">仕組み</a>
   <a href="#week">1週間</a>
   <a href="#price">料金</a>
+  <a href="#teacher">講師</a>
   <a href="#flow">入塾まで</a>
   <a href="#qa">よくある質問</a>
   <a href="#contact" class="cta-hd">無料の学習診断</a>
@@ -1794,11 +1914,97 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
   </div>
 </section>
 
+
+<!-- ============ 講師 ============ -->
+<section id="teacher" class="sec-cool">
+  <div class="inner">
+    <div class="sec-hd rv">
+      <div class="sec-no">06　設計する人</div>
+      <p class="catch"><span>誰が教えるかより、</span><span class="em">誰が設計するか。</span></p>
+      <h2>理数系の大学院を出た2人で<br>運営しています。</h2>
+      <p class="sec-lead">
+        授業がうまい先生は世の中にたくさんいます。
+        研数舎が担うのは、その手前にある「何をやるか」を決める仕事です。
+        対応科目は、数学を軸に段階的に広げています。
+      </p>
+    </div>
+
+    <div class="tch-grid rv">
+      <!-- 塾長 -->
+      <article class="tch">
+        <div class="tch-hd">
+          <div class="tch-ph" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="23" r="12" class="tp"/>
+              <path d="M8 60 a24 22 0 0 1 48 0 Z" class="tp"/></svg>
+          </div>
+          <div>
+            <div class="tch-role">塾長</div>
+            <h3 class="tch-name">北村 優翔<span>きたむら ゆうと</span></h3>
+            <div class="tch-sub">全体の設計／数学・物理</div>
+          </div>
+        </div>
+
+        <p class="tch-msg">
+          大手個別指導塾で6年間指導するなかで、
+          <b>伸びない生徒に共通していたのは勉強量ではなく、
+          「今日やること」が決まっていないこと</b>でした。<br>
+          授業の質を上げるより、演習の中身を設計するほうが効きます。
+          そのための仕組みを作りたくて、この塾を始めました。
+        </p>
+
+        <dl class="tch-list">
+          <div><dt>学歴</dt><dd>東京理科大学 理学部<br>
+            東京理科大学大学院 修士課程（数学）修了</dd></div>
+          <div><dt>職歴</dt><dd>大手メーカー IT品質部門<br>
+            大手個別指導塾 講師（6年）</dd></div>
+          <div><dt>資格</dt><dd>中学校・高等学校教諭免許（数学）</dd></div>
+          <div><dt>担当</dt><dd>カリキュラム設計／学習管理<br>数学・物理</dd></div>
+        </dl>
+      </article>
+
+      <!-- 講師 -->
+      <article class="tch">
+        <div class="tch-hd">
+          <div class="tch-ph" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="23" r="12" class="tp"/>
+              <path d="M8 60 a24 22 0 0 1 48 0 Z" class="tp"/></svg>
+          </div>
+          <div>
+            <div class="tch-role">講師</div>
+            <h3 class="tch-name">田中 佑磨<span>たなか ゆうま</span></h3>
+            <div class="tch-sub">数学・英語／確率・統計</div>
+          </div>
+        </div>
+
+        <p class="tch-msg">
+          保険数理の実務では、<b>確率と統計を使って将来を見積もる</b>ことが仕事です。
+          手元の数字から先を読む点は、学習計画の設計とよく似ています。<br>
+          「なぜその式になるのか」を、納得できるまで一緒に考えます。
+        </p>
+
+        <dl class="tch-list">
+          <div><dt>学歴</dt><dd>東京理科大学 理学部<br>
+            早稲田大学大学院 修士課程 修了</dd></div>
+          <div><dt>職歴</dt><dd>共済団体 アクチュアリー部門</dd></div>
+          <div><dt>資格</dt><dd>日本アクチュアリー会 準会員</dd></div>
+          <div><dt>担当</dt><dd>数学・英語／確率・統計<br>記述答案の添削</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="tch-note rv">
+      <b>設計と指導を、同じ人間が担います。</b>
+      計画を作った本人が授業をするため、
+      つまずいた箇所がそのまま翌週の計画に反映されます。
+    </div>
+  </div>
+</section>
+
 <!-- ============ 入塾まで ============ -->
 <section id="flow">
   <div class="inner">
     <div class="sec-hd rv">
-      <div class="sec-no">06　入塾までの流れ</div>
+      <div class="sec-no">07　入塾までの流れ</div>
       <p class="catch"><span>診断も、計画も、</span><span class="em">まずは無料です。</span></p>
       <h2>入る前に、中身を見てください。</h2>
       <p class="sec-lead">
@@ -1877,7 +2083,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
 <section class="qa sec-cool" id="qa">
   <div class="inner">
     <div class="sec-hd rv">
-      <div class="sec-no">07　よくある質問</div>
+      <div class="sec-no">08　よくある質問</div>
       <p class="catch"><span>都合の悪いことも、</span><span class="em">正直に書きます。</span></p>
       <h2>ご不明な点</h2>
     </div>
@@ -1937,7 +2143,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
 <section class="contact" id="contact">
   <div class="inner">
     <div class="sec-hd rv" style="text-align:center;margin-bottom:34px">
-      <div class="sec-no" style="color:var(--shu)">08　お申し込み</div>
+      <div class="sec-no" style="color:var(--shu)">09　お申し込み</div>
       <p class="catch ct-catch"><span>迷っている時間も、</span><span class="em">受験までの時間です。</span></p>
       <h2>まず、現在地を測ってください。</h2>
       <p class="sec-lead" style="margin-left:auto;margin-right:auto">
@@ -2029,6 +2235,7 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
       <a href="#why">課題</a>
       <a href="#method">仕組み</a>
       <a href="#price">料金</a>
+      <a href="#teacher">講師</a>
       <a href="#flow">入塾まで</a>
       <a href="#qa">よくある質問</a>
       <a href="#contact">お申し込み</a>
@@ -2220,6 +2427,33 @@ footer{padding:44px 22px;font-size:12.5px;color:var(--ink3);
       btn.textContent = "メールソフトを開いています";
       setTimeout(function(){ btn.textContent = "この内容で申し込む"; }, 3200);
     });
+  })();
+
+
+  /* --- 問い合わせの計測 ---
+     どの経路から連絡が来たかを把握する。
+     Googleアナリティクスなどを入れたら、その送信処理に差し替える。 */
+  (function(){
+    function track(kind, where){
+      /* 例：gtag があれば送る */
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "contact", { method: kind, location: where });
+      }
+      /* 開発中の確認用。公開時は消してよい */
+      if (window.console && console.info) {
+        console.info("[contact]", kind, where);
+      }
+    }
+    document.addEventListener("click", function(e){
+      var a = e.target.closest("a,button");
+      if(!a) return;
+      var href = a.getAttribute("href") || "";
+      var sec  = a.closest("section");
+      var where = (sec && sec.id) || "header";
+      if(href.indexOf("tel:") === 0)      track("tel", where);
+      else if(href.indexOf("#contact")===0) track("cta", where);
+      else if(a.id === "f-send")           track("form", where);
+    }, true);
   })();
 
   /* --- ヘッダの高さぶんずらして移動 --- */
